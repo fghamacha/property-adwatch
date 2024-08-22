@@ -1,9 +1,10 @@
 import requests
 from bs4 import BeautifulSoup
+import os
 
 # Set variables:
 ##  URL de la page d'annonces
-url_bailleur_1  = "https://www.antin-residences.fr/biens?type_de_bien=hlm&louer_ou_acheter=acheter&"
+url_bailleur_1  = os.getenv('URL_BAILLEUR_1')
 
 def get_ads():
 # En-têtes pour simuler un navigateur et éviter les blocages
@@ -17,7 +18,7 @@ def get_ads():
 
     # Afficher le contenu brut de la page
     # print("Contenu brut de la page HTML :")
-    print(soup)
+    # print(soup)
 
     # Afficher des parties spécifiques du contenu
     print("\néléments trouvés :")
@@ -38,4 +39,5 @@ def get_ads():
         print(f"Localisation : {location}")
         print(f"Prix : {', '.join(price)}")
         print(f"Type : {ad_type}")
+        
 get_ads()
