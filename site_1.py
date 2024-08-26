@@ -40,14 +40,19 @@ def get_ads_1(url_bailleur):
             maisons_pavillons.append((title, location, price, ad_type))
         else:
             appartements.append((title, location, price, ad_type))
+    
+    # Afficher les résultats triés
+    global_compteur = 1
 
     # Afficher les maisons et pavillons en premier
-    print("\nMaisons et Pavillons :")
+    print("\nMaisons et Pavillons",url_bailleur, ":")
     for title, location, price, ad_type in maisons_pavillons:
+        print(f'Offre {global_compteur}:')
         print(f"\nTitre : {title}")
         print(f"Localisation : {location}")
         print(f"Prix : {', '.join(price)}")
         print(f"Type : {ad_type}")
+        global_compteur += 1
 """
     # Ensuite, afficher les appartements
     print("\nAppartements :")
@@ -62,4 +67,8 @@ def get_ads_1(url_bailleur):
 ##  URL de la page d'annonces
 url_bailleur_1  = os.getenv('URL_BAILLEUR_1')
 
-get_ads_1(url_bailleur_1)
+# Si ce fichier est exécuté directement, la fonction suivante sera appelée
+
+if __name__ == "__main__":
+    url_bailleur_1 = os.getenv('URL_BAILLEUR_1')
+    get_ads_1(url_bailleur_1)

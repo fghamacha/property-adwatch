@@ -74,6 +74,7 @@ def get_ads_2(url_bailleur):
     global_compteur = 1
 
     # Afficher d'abord les maisons et pavillons
+    print("\nMaisons et Pavillons",url_bailleur, ":")
     for title, price, location, features, link in maisons_pavillons:
         print(f'Offre {global_compteur}:')
         print(f'Titre: {title}')
@@ -97,4 +98,9 @@ def get_ads_2(url_bailleur):
     """
 # Appeler la fonction pour exécuter le scraping et afficher les résultats
 url_bailleur_2 = os.getenv('URL_BAILLEUR_2')
-get_ads_2(url_bailleur_2)
+
+# Si ce fichier est exécuté directement, la fonction suivante sera appelée
+
+if __name__ == "__main__":
+    url_bailleur_2 = os.getenv('URL_BAILLEUR_2')
+    get_ads_2(url_bailleur_2)
