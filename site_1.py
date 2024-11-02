@@ -51,14 +51,17 @@ def get_ads_1(url_bailleur):
     global_compteur = 1
 
     # Afficher les maisons et pavillons en premier
-    print("\n################# Site 1 {base_detail_url} #################")
-
+    print("\n################# Site 1" ,base_detail_url, "#################")
+    
+    print('-' * 50)
     print("\nMaisons et Pavillons",url_bailleur, ":")
+    print('-' * 50)
+
     for title, location, price, ad_type, link in maisons_pavillons:
         print(f'### Offre {global_compteur}: ###')
         print(f"Titre : {title}")
-        print(f"Localisation : {location}")
         print(f"Prix : {', '.join(price)}")
+        print(f"Localisation : {location}")
         print(f"Type : {ad_type}")
         print(f"Lien : {link}")
         print('-' * 50)
