@@ -52,7 +52,7 @@ def get_ads_1(url_bailleur):
 
     # Afficher les maisons et pavillons en premier
     print("\nMaisons et Pavillons",url_bailleur, ":")
-    for title, location, price, ad_type in maisons_pavillons:
+    for title, location, price, ad_type, link in maisons_pavillons:
         print(f'\n### Offre {global_compteur}: ###')
         print(f"Titre : {title}")
         print(f"Localisation : {location}")
