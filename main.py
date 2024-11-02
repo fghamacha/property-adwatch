@@ -6,10 +6,10 @@ def main():
     url_bailleur_1 = os.getenv('URL_BAILLEUR_1')
     url_bailleur_2 = os.getenv('URL_BAILLEUR_2')
     
-    print("\n################# Site 1 #################")
+#    print("\n################# Site 1 #################")
     get_ads_1(url_bailleur_1)
     
-    print("\n################# site 2 #################\n")
+#    print("\n################# site 2 #################\n")
     get_ads_2(url_bailleur_2)
 
 if __name__ == "__main__":
