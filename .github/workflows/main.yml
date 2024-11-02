@@ -28,7 +28,7 @@ jobs:
     - name: Run the script
       env:
         URL_BAILLEUR_1: ${{ vars.URL_BAILLEUR_1 }}
-        URL_BAILLEUR_2: ${{ secrets.URL_BAILLEUR_2 }}
+        URL_BAILLEUR_2: ${{ vars.URL_BAILLEUR_2 }}
 
       run: |
         python main.py

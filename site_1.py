@@ -4,7 +4,7 @@ import os
 
 def get_ads_1(url_bailleur):
     # URL de base pour les détails des logements, dérivé de url_bailleur
-    base_detail_url = url_bailleur.replace('biens?type_de_bien=hlm&louer_ou_acheter=acheter&', '{}')
+    base_detail_url = url_bailleur.replace('biens?type_de_bien=hlm&louer_ou_acheter=acheter&', '')
 # En-têtes pour simuler un navigateur et éviter les blocages
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36'
