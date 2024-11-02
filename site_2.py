@@ -37,7 +37,7 @@ def get_ads_2(url_bailleur):
         
         # Si aucun logement n'est trouvé, sortir de la boucle
         if not logements:
-            print("Aucune nouvelle offre trouvée, fin de la pagination.")
+        #    print("Aucune nouvelle offre trouvée, fin de la pagination.")
             break
         
         # Parcourir chaque annonce et extraire les informations

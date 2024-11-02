@@ -1,6 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
-import os
+import sys
 
 def get_ads_1(url_bailleur):
     # URL de base pour les détails des logements, dérivé de url_bailleur
@@ -49,7 +49,7 @@ def get_ads_1(url_bailleur):
     
     # Afficher les résultats triés
     global_compteur = 1
-
+    print(soup)
     # Afficher les maisons et pavillons en premier
     print("\n################# Site 1" ,base_detail_url, "#################")
     
@@ -76,12 +76,9 @@ def get_ads_1(url_bailleur):
         print(f"Type : {ad_type}")
 """
 
-# Set variables:
-##  URL de la page d'annonces
-url_bailleur_1  = os.getenv('URL_BAILLEUR_1')
 
 # Si ce fichier est exécuté directement, la fonction suivante sera appelée
 
 if __name__ == "__main__":
-    url_bailleur_1 = os.getenv('URL_BAILLEUR_1')
-    get_ads_1(url_bailleur_1)
+    url = sys.argv[1]
+    get_ads_1(url)
