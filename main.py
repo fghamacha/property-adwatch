@@ -14,7 +14,7 @@ def main():
     subprocess.run(["python", "site_1.py", url_bailleur_1])
     
 #    print("\n################# site 2 #################\n")
-    get_ads_2(url_bailleur_2)
+    subprocess.run(["python", "site_2.py", url_bailleur_2])
 
 if __name__ == "__main__":
     main()

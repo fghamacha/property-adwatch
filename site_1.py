@@ -49,7 +49,7 @@ def get_ads_1(url_bailleur):
     
     # Afficher les résultats triés
     global_compteur = 1
-    print(soup)
+    # print(soup)
     # Afficher les maisons et pavillons en premier
     print("\n################# Site 1" ,base_detail_url, "#################")
     

@@ -1,6 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
-import os
+import sys
 
 
 def get_ads_2(url_bailleur):
@@ -102,11 +102,9 @@ def get_ads_2(url_bailleur):
         print('-' * 40)
         global_compteur += 1
     """
-# Appeler la fonction pour exécuter le scraping et afficher les résultats
-url_bailleur_2 = os.getenv('URL_BAILLEUR_2')
 
 # Si ce fichier est exécuté directement, la fonction suivante sera appelée
 
 if __name__ == "__main__":
-    url_bailleur_2 = os.getenv('URL_BAILLEUR_2')
-    get_ads_2(url_bailleur_2)
+    url = sys.argv[1]
+    get_ads_2(url)
