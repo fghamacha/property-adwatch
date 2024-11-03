@@ -22,7 +22,7 @@ def get_ads_4(url_bailleur):
     logements = json_data['props']['pageProps']['defaultSearchResponse']['hits']['hits']
     
     print("\n################# Site 4" ,base_detail_url, "#" * 50)
-    print("\nMaisons et Pavillons",url_bailleur, ":")
+    print("Maisons et Pavillons",url_bailleur)
     print('#' * 100)
 
     # Extraire les informations pour chaque offre
