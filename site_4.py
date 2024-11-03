@@ -23,7 +23,7 @@ def get_ads_4(url_bailleur):
     
     print("\n################# Site 4" ,base_detail_url, "#" * 50)
     print("\nMaisons et Pavillons",url_bailleur, ":")
-    print('#' * 50)
+    print('#' * 100)
 
     # Extraire les informations pour chaque offre
     for logement in logements:
@@ -34,6 +34,8 @@ def get_ads_4(url_bailleur):
         location = ville + ' ' + code_postal
         price = logement['_source'].get('transaction', {}).get('price')
         product_type = logement['_source'].get('productType', {}).get('description')
+        reference   =   logement['_source'].get('reference')
+        link    =   f"{base_detail_url}offre/{title.replace(' ', '%20')}/{reference}"
         surface = logement['_source']['data'].get('surface_habitable', {}).get('value')
         surface_unit = logement['_source']['data'].get('surface_habitable', {}).get('unit')
         # description = offer['_source'].get('description', 'N/A')
@@ -53,6 +55,7 @@ def get_ads_4(url_bailleur):
         print(f"Pièces : {rooms}")
         print(f"Contact : {contact_name}")
         print(f"Téléphone : {contact_phone}")
+        print(f"Lien : {link}")
         print("-" * 50)
 
     maisons_pavillons = []

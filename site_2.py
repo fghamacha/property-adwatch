@@ -75,7 +75,7 @@ def get_ads_2(url_bailleur):
 
     print("\n################# Site 2" ,base_detail_url, "#" * 50)
     print("\nMaisons et Pavillons",url_bailleur, ":")
-    print('#' * 50)
+    print('#' * 100)
 
     for title, price, location, features, link in maisons_pavillons:
         print(f'### Offre {global_compteur}: ###')
