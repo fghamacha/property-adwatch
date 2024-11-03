@@ -50,11 +50,9 @@ def get_ads_1(url_bailleur):
     global_compteur = 1
     # print(soup)
     # Afficher les maisons et pavillons en premier
-    print("\n################# Site 1" ,base_detail_url, "#################")
-    
-    print('-' * 50)
+    print("\n################# Site 1" ,base_detail_url, "#################" * 10)
     print("\nMaisons et Pavillons",url_bailleur, ":")
-    print('-' * 50)
+    print('#' * 50)
 
     for title, location, price, ad_type, link in maisons_pavillons:
         print(f'### Offre {global_compteur}: ###')

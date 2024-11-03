@@ -20,7 +20,11 @@ def get_ads_4(url_bailleur):
         
         # Accéder aux offres dans le JSON
     logements = json_data['props']['pageProps']['defaultSearchResponse']['hits']['hits']
-
+    
+    print("\n################# Site 4" ,base_detail_url, "#################")
+    print("\nMaisons et Pavillons",url_bailleur, ":")
+    print('#' * 50)
+    
     # Extraire les informations pour chaque offre
     for logement in logements:
         # Extraire les informations spécifiques
@@ -39,8 +43,6 @@ def get_ads_4(url_bailleur):
         contact_phone = logement['_source']['data'].get('telephone_mobile_a_afficher', {}).get('value')
 
         # Afficher les informations
-        print("\n################# Site 4" ,base_detail_url, "#################")
-
         print(f"Titre : {title}")
         print(f"Localisation : {location}")
         print(f"Prix : {price} €")

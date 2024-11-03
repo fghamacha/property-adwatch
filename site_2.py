@@ -73,13 +73,9 @@ def get_ads_2(url_bailleur):
     # Afficher les résultats triés
     global_compteur = 1
 
-    print("\n################# Site 2" ,base_detail_url, "#################")
-
-    # Afficher d'abord les maisons et pavillons
-
-    print('-' * 50)
+    print("\n################# Site 2" ,base_detail_url, "#################" * 50)
     print("\nMaisons et Pavillons",url_bailleur, ":")
-    print('-' * 50)
+    print('#' * 50)
 
     for title, price, location, features, link in maisons_pavillons:
         print(f'### Offre {global_compteur}: ###')
