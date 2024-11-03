@@ -20,7 +20,6 @@ def get_ads_1(url_bailleur):
 
     # Afficher le contenu brut de la page
     # print("Contenu brut de la page HTML :")
-    # print(soup)
 
     # Afficher des parties spécifiques du contenu
     print("\nOffres trouvés :")

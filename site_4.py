@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import sys
+import json
 
 def get_ads_4(url_bailleur):
     # URL de base pour les détails des logements, dérivé de url_bailleur
@@ -10,31 +11,50 @@ def get_ads_4(url_bailleur):
     }
     # Faire une requête GET pour récupérer le contenu de la page
     response = requests.get(url_bailleur, headers=headers)
-    
-    # Analyser le contenu HTML avec BeautifulSoup
+    # Initialisation de BeautifulSoup pour analyser le contenu HTML
     soup = BeautifulSoup(response.text, 'html.parser')
-    body_content = soup.body
-    # Initialiser les listes pour les types de logements
+    # Localiser le script avec l'ID `__NEXT_DATA__`
+    script_tag = soup.find("script", id="__NEXT_DATA__", type="application/json")
+    
+    json_data = json.loads(script_tag.string)
+        
+        # Accéder aux offres dans le JSON
+    logements = json_data['props']['pageProps']['defaultSearchResponse']['hits']['hits']
+
+    # Extraire les informations pour chaque offre
+    for logement in logements:
+        # Extraire les informations spécifiques
+        title = logement['_source'].get('title')
+        ville = logement['_source']['data'].get('ville',{}).get('value')
+        code_postal  = logement['_source']['data'].get('code_postal',{}).get('value')
+        location = ville + ' ' + code_postal
+        price = logement['_source'].get('transaction', {}).get('price')
+        product_type = logement['_source'].get('productType', {}).get('description')
+        surface = logement['_source']['data'].get('surface_habitable', {}).get('value')
+        surface_unit = logement['_source']['data'].get('surface_habitable', {}).get('unit')
+        # description = offer['_source'].get('description', 'N/A')
+        bedrooms = logement['_source']['data'].get('nombre_de_chambres', {}).get('value')
+        rooms = logement['_source'].get('data', {}).get('nb_pieces_logement', {}).get('value')
+        contact_name = logement['_source']['data'].get('contact_a_afficher', {}).get('value')
+        contact_phone = logement['_source']['data'].get('telephone_mobile_a_afficher', {}).get('value')
+
+        # Afficher les informations
+        print("\n################# Site 4" ,base_detail_url, "#################")
+
+        print(f"Titre : {title}")
+        print(f"Localisation : {location}")
+        print(f"Prix : {price} €")
+        print(f"Type : {product_type}")
+        print(f"Surface : {surface} {surface_unit}")
+        # print(f"Description : {description}")
+        print(f"Chambres : {bedrooms}")
+        print(f"Pièces : {rooms}")
+        print(f"Contact : {contact_name}")
+        print(f"Téléphone : {contact_phone}")
+        print("-" * 50)
+
     maisons_pavillons = []
     appartements = []
-
-    logements = soup.find_all('a', class_="text-blue font-bold")
-    print(logements)
-    
-        # Afficher des parties spécifiques du contenu
-    # print("\nOffres trouvés :")
-    # Trouver les éléments d'annonces (par exemple, 'div' avec la classe 'views-row')
-    # ads = soup.find_all('div', class_='text-blue font-bold')
-    # for ad in ads:
-    #     title = ad.find('div', class_='field--name-field-titre-de-l-annonce').text.strip() if ad.find('div', class_='field--name-field-titre-de-l-annonce') else 'Titre non disponible'
-    #     location = ad.find('span', class_="text-pink font-medium text-sm").text.strip() if ad.find('span', class_="text-pink font-medium text-sm") else 'Localisation non disponible'
-    #     price = [li.text.strip() for li in ad.find_all('li') if 'Prix de vente' in li.text]
-    #     attribs = ad.find('ul', class_='attributs line_ul')
-    #      # Récupérer le lien de l'annonce
-    #     link_tag = ad.find('a', class_='orange ft-14 parking-teaser_more underlined')
-    #     link = base_detail_url + link_tag['href'] if link_tag else 'Lien non disponible'
-
-    # Si ce fichier est exécuté directement, la fonction suivante sera appelée
 
 if __name__ == "__main__":
     url = sys.argv[1]
