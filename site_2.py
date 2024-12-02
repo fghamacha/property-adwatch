@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
+import yaml
 import sys
 
 
@@ -9,11 +10,13 @@ def get_ads_2(url_bailleur):
 
     # Initialiser le compteur de pages
     page_number = 1
-
+    compteur_maison = 1
     # Initialiser les listes pour les types de logements
     maisons_pavillons = []
     appartements = []
-
+    maisons_yml = []
+    appartements_yml = [] 
+    
     # Liste des préfixes de codes postaux pour l'Île-de-France
     idf_prefixes = ['75', '77', '78', '91', '92', '93', '94', '95']
 
@@ -64,14 +67,31 @@ def get_ads_2(url_bailleur):
                     # Trier les logements en fonction du type (maison/pavillon en premier)
                     if "maison" in title_text.lower() or "pavillon" in title_text.lower():
                         maisons_pavillons.append((title_text, price, location, features, full_link))
+                        maison  =   {
+                            'id': compteur_maison,
+                            'titre': title,
+                            'prix': price,
+                            'localisation': location,
+                            'type': features,
+                            'lien': link
+                        }
+                        compteur_maison +=1
+                        maisons_yml.append(maison)
+
                     else:
                         appartements.append((title_text, price, location, features, full_link))
-        
+            ads_bailleur_ = {url_bailleur: maisons_yml}
+            apparts_bailleur_ = {url_bailleur: appartements_yml}
+
         # Passer à la page suivante
         page_number += 1
-
+    # Enregistrer les données dans un fichier YAML
+    # Maisons
+    with open('maisons.yaml', 'w') as file:
+        yaml.dump(ads_bailleur_, file, default_flow_style=False, allow_unicode=True)
     # Afficher les résultats triés
     global_compteur = 1
+    """
 
     print("\n################# Site 2" ,base_detail_url, "#" * 50)
     print("Maisons et Pavillons",url_bailleur)
@@ -87,7 +107,6 @@ def get_ads_2(url_bailleur):
         print('-' * 50)
         global_compteur += 1
     # Ensuite, afficher les appartements
-    """
     for title, price, location, features, link in appartements:
         print(f'Offre {global_compteur}:')
         print(f'Titre: {title}')

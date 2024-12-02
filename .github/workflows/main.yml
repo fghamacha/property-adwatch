@@ -6,6 +6,7 @@ on:
       - main  # Le script se déclenche à chaque push sur la branche main
   schedule:
     - cron: '0 8 * * *'  # Le script se déclenche tous les jours à 8h00 UTC
+  workflow_dispatch:  # Permet le déclenchement manuel sur toutes les branches
 
 jobs:
   run-script:
