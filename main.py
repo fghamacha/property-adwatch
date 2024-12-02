@@ -15,7 +15,7 @@ def main():
 
 #    print("\n################# site 4 #################\n")
     subprocess.run(["python", "site_4.py", url_bailleur_4])
-    subprocess.run(['cat', '/tmp/maisons.yaml'])
+    subprocess.run(['cat', 'maisons.yaml'])
 
 
 if __name__ == "__main__":
