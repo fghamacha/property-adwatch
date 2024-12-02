@@ -15,6 +15,8 @@ def main():
 
 #    print("\n################# site 4 #################\n")
     subprocess.run(["python", "site_4.py", url_bailleur_4])
+
+#    print("\n################# Maisons yml #################\n")
     subprocess.run(['cat', 'maisons.yaml'])
 
 
