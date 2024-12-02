@@ -87,12 +87,11 @@ def get_ads_2(url_bailleur):
         page_number += 1
     # Enregistrer les données dans un fichier YAML
     # Maisons
-    with open('maisons.yaml', 'w') as file:
-        yaml.dump(ads_bailleur_, file, default_flow_style=False, allow_unicode=True)
+        with open('maisons.yaml', 'w') as file:
+            yaml.dump(ads_bailleur_, file, default_flow_style=False, allow_unicode=True)
     # Afficher les résultats triés
     global_compteur = 1
     """
-
     print("\n################# Site 2" ,base_detail_url, "#" * 50)
     print("Maisons et Pavillons",url_bailleur)
     print('#' * 100)
