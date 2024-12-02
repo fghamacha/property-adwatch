@@ -11,6 +11,7 @@ def get_ads_2(url_bailleur):
     # Initialiser le compteur de pages
     page_number = 1
     compteur_maison = 1
+    compteur_appartement = 1
     # Initialiser les listes pour les types de logements
     maisons_pavillons = []
     appartements = []
@@ -36,29 +37,29 @@ def get_ads_2(url_bailleur):
         soup = BeautifulSoup(response.text, 'html.parser')
         
         # Trouver toutes les annonces de logements sur cette page
-        logements = soup.find_all('div', class_='col-xs-12 col-sm-12 col-md-6 col-lg-6')
+        ads = soup.find_all('div', class_='col-xs-12 col-sm-12 col-md-6 col-lg-6')
         
         # Si aucun logement n'est trouvé, sortir de la boucle
-        if not logements:
+        if not ads:
         #    print("Aucune nouvelle offre trouvée, fin de la pagination.")
             break
         
         # Parcourir chaque annonce et extraire les informations
-        for logement in logements:
-            title = logement.find('h2')
+        for ad in ads:
+            title = ad.find('h2')
             if title:
                 title_text = title.text.strip()
-                price = logement.find('span', class_='custom-figPrice').text.strip() if logement.find('span', class_='custom-figPrice') else "No Price"
-                location = logement.find('div', class_='cardAddress').text.strip() if logement.find('div', class_='cardAddress') else "No Location"
+                price = ad.find('span', class_='custom-figPrice').text.strip() if ad.find('span', class_='custom-figPrice') else "No Price"
+                location = ad.find('div', class_='cardAddress').text.strip() if ad.find('div', class_='cardAddress') else "No Location"
                 
                 # Extraire le lien vers la page de détail
-                link = logement.find('a', class_='card')['href']
+                link = ad.find('a', class_='card')['href']
                 full_link = base_detail_url.format(link)
                 
                 # Vérifier si le logement est en Île-de-France
                 if any(location.startswith(prefix) for prefix in idf_prefixes):
                     # Récupérer les caractéristiques et les nettoyer
-                    features_list = logement.find('ul', class_='cardFeat')
+                    features_list = ad.find('ul', class_='cardFeat')
                     if features_list:
                         features = ', '.join(item.text.strip() for item in features_list.find_all('li'))
                     else:
@@ -67,7 +68,7 @@ def get_ads_2(url_bailleur):
                     # Trier les logements en fonction du type (maison/pavillon en premier)
                     if "maison" in title_text.lower() or "pavillon" in title_text.lower():
                         maisons_pavillons.append((title_text, price, location, features, full_link))
-                        maison  =   {
+                        logement  =   {
                             'id': compteur_maison,
                             'titre': title,
                             'prix': price,
@@ -76,8 +77,7 @@ def get_ads_2(url_bailleur):
                             'lien': link
                         }
                         compteur_maison +=1
-                        maisons_yml.append(maison)
-
+                        maisons_yml.append(logement)
                     else:
                         appartements.append((title_text, price, location, features, full_link))
             ads_bailleur_ = {url_bailleur: maisons_yml}
@@ -91,7 +91,7 @@ def get_ads_2(url_bailleur):
             yaml.dump(ads_bailleur_, file, default_flow_style=False, allow_unicode=True)
     # Afficher les résultats triés
     global_compteur = 1
-    """
+   
     print("\n################# Site 2" ,base_detail_url, "#" * 50)
     print("Maisons et Pavillons",url_bailleur)
     print('#' * 100)
@@ -105,6 +105,7 @@ def get_ads_2(url_bailleur):
         print(f'Lien: {link}')
         print('-' * 50)
         global_compteur += 1
+    """
     # Ensuite, afficher les appartements
     for title, price, location, features, link in appartements:
         print(f'Offre {global_compteur}:')
