@@ -1,6 +1,8 @@
 import requests
 from bs4 import BeautifulSoup
+import yaml
 import sys
+import subprocess
 
 def get_ads_1(url_bailleur):
     # URL de base pour les détails des logements, dérivé de url_bailleur
@@ -17,6 +19,7 @@ def get_ads_1(url_bailleur):
     # Initialiser les listes pour les types de logements
     maisons_pavillons = []
     appartements = []
+    maisons_yml = []
 
     # Afficher le contenu brut de la page
     # print("Contenu brut de la page HTML :")
@@ -25,6 +28,7 @@ def get_ads_1(url_bailleur):
     print("\nOffres trouvés :")
     # Trouver les éléments d'annonces (par exemple, 'div' avec la classe 'views-row')
     ads = soup.find_all('div', class_='views-row')
+    compteur_maison = 1
     for ad in ads:
         title = ad.find('div', class_='field--name-field-titre-de-l-annonce').text.strip() if ad.find('div', class_='field--name-field-titre-de-l-annonce') else 'Titre non disponible'
         location = ad.find('div', class_='localisation').text.strip() if ad.find('div', class_='localisation') else 'Localisation non disponible'
@@ -43,9 +47,23 @@ def get_ads_1(url_bailleur):
         # Trier les annonces en fonction du type de logement
         if "maison" in ad_type.lower() or "pavillon" in ad_type.lower():
             maisons_pavillons.append((title, location, price, ad_type, link))
+            logement  =   {
+                'id': compteur_maison,
+                'titre': title,
+                'prix': ', '.join(price),
+                'localisation': location,
+                'type': ad_type,
+                'lien': link
+            }
+            compteur_maison +=1
+            maisons_yml.append(logement)
         else:
             appartements.append((title, location, price, ad_type, link))
-    
+    ads_bailleur_ = {url_bailleur: maisons_yml}
+    # Enregistrer les données dans un fichier YAML
+    with open('maisons.yaml', 'w') as file:
+        yaml.dump(ads_bailleur_, file, default_flow_style=False, allow_unicode=True)
+    subprocess.run(['cat', 'maisons.yaml'])
     # Afficher les résultats triés
     global_compteur = 1
     # print(soup)
@@ -63,6 +81,8 @@ def get_ads_1(url_bailleur):
         print(f"Lien : {link}")
         print('-' * 50)
         global_compteur += 1
+
+
 """
     # Ensuite, afficher les appartements
     print("\nAppartements :")
@@ -72,6 +92,7 @@ def get_ads_1(url_bailleur):
         print(f"Prix : {', '.join(price)}")
         print(f"Type : {ad_type}")
 """
+
 
 
 # Si ce fichier est exécuté directement, la fonction suivante sera appelée
