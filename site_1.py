@@ -1,6 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
-import PyYAML
+import yaml
 import sys
 import subprocess
 
@@ -62,7 +62,7 @@ def get_ads_1(url_bailleur):
     ads_bailleur_ = {url_bailleur: maisons_yml}
     # Enregistrer les données dans un fichier YAML
     with open('maisons.yaml', 'w') as file:
-        PyYAML.dump(ads_bailleur_, file, default_flow_style=False, allow_unicode=True)
+        yaml.dump(ads_bailleur_, file, default_flow_style=False, allow_unicode=True)
     subprocess.run(['cat', 'maisons.yaml'])
     # Afficher les résultats triés
     global_compteur = 1
