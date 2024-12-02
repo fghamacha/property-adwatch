@@ -20,6 +20,7 @@ def get_ads_1(url_bailleur):
     maisons_pavillons = []
     appartements = []
     maisons_yml = []
+    appartements_yml = []    
 
     # Afficher le contenu brut de la page
     # print("Contenu brut de la page HTML :")
@@ -29,6 +30,8 @@ def get_ads_1(url_bailleur):
     # Trouver les éléments d'annonces (par exemple, 'div' avec la classe 'views-row')
     ads = soup.find_all('div', class_='views-row')
     compteur_maison = 1
+    compteur_appartement =1
+
     for ad in ads:
         title = ad.find('div', class_='field--name-field-titre-de-l-annonce').text.strip() if ad.find('div', class_='field--name-field-titre-de-l-annonce') else 'Titre non disponible'
         location = ad.find('div', class_='localisation').text.strip() if ad.find('div', class_='localisation') else 'Localisation non disponible'
@@ -59,11 +62,28 @@ def get_ads_1(url_bailleur):
             maisons_yml.append(logement)
         else:
             appartements.append((title, location, price, ad_type, link))
+            logement  =   {
+                'id': compteur_appartement,
+                'titre': title,
+                'prix': ', '.join(price),
+                'localisation': location,
+                'type': ad_type,
+                'lien': link
+            }
+            compteur_appartement +=1
+            appartements_yml.append(logement)            
     ads_bailleur_ = {url_bailleur: maisons_yml}
+    apparts_bailleur_ = {url_bailleur: appartements_yml}
+
     # Enregistrer les données dans un fichier YAML
+    # Maisons
     with open('maisons.yaml', 'w') as file:
         yaml.dump(ads_bailleur_, file, default_flow_style=False, allow_unicode=True)
     subprocess.run(['cat', 'maisons.yaml'])
+    # Appartement
+    with open('appartements_yml.yaml', 'w') as file:
+        yaml.dump(apparts_bailleur_, file, default_flow_style=False, allow_unicode=True)
+    subprocess.run(['cat', 'appartements_yml'])
     # Afficher les résultats triés
     global_compteur = 1
     # print(soup)
