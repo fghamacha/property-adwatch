@@ -71,7 +71,8 @@ def get_ads_1(url_bailleur):
                 'lien': link
             }
             compteur_appartement +=1
-            appartements_yml.append(logement)            
+            appartements_yml.append(logement)
+
     ads_bailleur_ = {url_bailleur: maisons_yml}
     apparts_bailleur_ = {url_bailleur: appartements_yml}
 
@@ -81,9 +82,9 @@ def get_ads_1(url_bailleur):
         yaml.dump(ads_bailleur_, file, default_flow_style=False, allow_unicode=True)
     subprocess.run(['cat', 'maisons.yaml'])
     # Appartement
-    with open('appartements_yml.yaml', 'w') as file:
+    with open('appartements.yaml', 'w') as file:
         yaml.dump(apparts_bailleur_, file, default_flow_style=False, allow_unicode=True)
-    subprocess.run(['cat', 'appartements_yml'])
+    subprocess.run(['cat', 'appartements.yaml'])
     # Afficher les résultats triés
     global_compteur = 1
     # print(soup)
