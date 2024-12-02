@@ -80,11 +80,11 @@ def get_ads_1(url_bailleur):
     # Maisons
     with open('maisons.yaml', 'w') as file:
         yaml.dump(ads_bailleur_, file, default_flow_style=False, allow_unicode=True)
-    subprocess.run(['cat', '/tmp/maisons.yaml'])
+    subprocess.run(['cat', 'maisons.yaml'])
     # Appartement
     with open('appartements.yaml', 'w') as file:
         yaml.dump(apparts_bailleur_, file, default_flow_style=False, allow_unicode=True)
-    subprocess.run(['cat', '/tmp/appartements.yaml'])
+    subprocess.run(['cat', 'appartements.yaml'])
     # Afficher les résultats triés
     global_compteur = 1
     # print(soup)
