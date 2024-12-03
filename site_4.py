@@ -58,7 +58,7 @@ def get_ads_4(url_bailleur):
             'prix': price,
             'localisation': location,
             'type': product_type,
-            'Surface': "{surface} {surface_unit}",
+            'Surface': surface,
             'Chambres': bedrooms,
             'Pièces': rooms,
             'Contact': contact_name,
