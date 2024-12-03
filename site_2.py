@@ -73,28 +73,30 @@ def get_ads_2(url_bailleur):
                             'titre': title,
                             'prix': price,
                             'localisation': location,
-                            # 'type': features,
+#                           'type': features,
                             'lien': link
                         }
                         compteur_maison +=1
                         maisons_yml.append(logement)
                     else:
                         appartements.append((title_text, price, location, features, full_link))
-            ads_bailleur_ = {url_bailleur: maisons_yml}
+
             # apparts_bailleur_ = {url_bailleur: appartements_yml}
 
         # Passer à la page suivante
         page_number += 1
+                # create maisons.yaml file content
+    ads_bailleur_ = {url_bailleur: maisons_yml}
     # Enregistrer les données dans un fichier YAML
     # Maisons
-        with open('maisons.yaml', 'w') as file:
-            yaml.dump(ads_bailleur_, file, default_flow_style=False, allow_unicode=True)
+    with open('maisons.yaml', 'w') as file:
+        yaml.dump(ads_bailleur_, file, default_flow_style=False, allow_unicode=True)
     # Afficher les résultats triés
     
     """
     global_compteur = 1
    
-    print("\n################# Site 2" ,base_detail_url, "#" * 50)
+    print("################# Site 2" ,base_detail_url, "#" * 50)
     print("Maisons et Pavillons",url_bailleur)
     print('#' * 100)
 
