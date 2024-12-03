@@ -30,9 +30,9 @@ def get_ads_4(url_bailleur):
         # Accéder aux offres dans le JSON
     ads = json_data['props']['pageProps']['defaultSearchResponse']['hits']['hits']
     
-    print("\n################# Site 4" ,base_detail_url, "#" * 50)
-    print("Maisons et Pavillons",url_bailleur)
-    print('#' * 100)
+    # print("\n################# Site 4" ,base_detail_url, "#" * 50)
+    # print("Maisons et Pavillons",url_bailleur)
+    # print('#' * 100)
 
     # Extraire les informations pour chaque offre
     for ad in ads:
@@ -81,8 +81,8 @@ def get_ads_4(url_bailleur):
         # print(f"Lien : {link}")
         # print("-" * 50)
 
-    ads_bailleur_ = {url_bailleur: maisons_yml}
-    apparts_bailleur_ = {url_bailleur: appartements_yml}
+    ads_bailleur_ = {base_detail_url: maisons_yml}
+    apparts_bailleur_ = {base_detail_url: appartements_yml}
 
     # Enregistrer les données dans un fichier YAML
     save_to_yaml('maisons.yaml', ads_bailleur_)

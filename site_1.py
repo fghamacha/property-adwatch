@@ -73,8 +73,10 @@ def get_ads_1(url_bailleur):
             compteur_appartement +=1
             appartements_yml.append(logement)
 
-    ads_bailleur_ = {url_bailleur: maisons_yml}
-    apparts_bailleur_ = {url_bailleur: appartements_yml}
+    ads_bailleur_ = {base_detail_url: maisons_yml}
+    apparts_bailleur_ = {base_detail_url: appartements_yml}
+    # Enregistrer les données dans un fichier YAML
+    save_to_yaml('maisons.yaml', ads_bailleur_)
 
     # Enregistrer les données dans un fichier YAML
     # Maisons

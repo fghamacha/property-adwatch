@@ -88,7 +88,7 @@ def get_ads_2(url_bailleur):
         # Passer à la page suivante
         page_number += 1
                 # create maisons.yaml file content
-    ads_bailleur_ = {url_bailleur: maisons_yml}
+    ads_bailleur_ = {base_detail_url: maisons_yml}
     # Enregistrer les données dans un fichier YAML
     
     save_to_yaml('maisons.yaml', ads_bailleur_)
