@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import yaml
 import sys
+from save_to_yaml import save_to_yaml
 
 def get_ads_1(url_bailleur):
     # URL de base pour les détails des logements, dérivé de url_bailleur
@@ -20,9 +21,6 @@ def get_ads_1(url_bailleur):
     appartements = []
     maisons_yml = []
     appartements_yml = []    
-
-    # Afficher le contenu brut de la page
-    # print("Contenu brut de la page HTML :")
 
     # Afficher des parties spécifiques du contenu
     print("\nOffres trouvés :")
@@ -72,45 +70,10 @@ def get_ads_1(url_bailleur):
             compteur_appartement +=1
             appartements_yml.append(logement)
 
-    ads_bailleur_ = {url_bailleur: maisons_yml}
-    apparts_bailleur_ = {url_bailleur: appartements_yml}
-
+    ads_bailleur_ = {base_detail_url: maisons_yml}
+    apparts_bailleur_ = {base_detail_url: appartements_yml}
     # Enregistrer les données dans un fichier YAML
-    # Maisons
-    with open('maisons.yaml', 'w') as file:
-        yaml.dump(ads_bailleur_, file, default_flow_style=False, allow_unicode=True)
-    # Appartement
-    with open('appartements.yaml', 'w') as file:
-        yaml.dump(apparts_bailleur_, file, default_flow_style=False, allow_unicode=True)
-    # Afficher les résultats triés
-    global_compteur = 1
-    # print(soup)
-    # Afficher les maisons et pavillons en premier
-    # print("\n################# Site 1" ,base_detail_url, "#" * 50)
-    # print("Maisons et Pavillons",url_bailleur)
-    # print('#' * 100)
-
-    # for title, location, price, ad_type, link in maisons_pavillons:
-    #     print(f'### Offre {global_compteur}: ###')
-    #     print(f"Titre : {title}")
-    #     print(f"Prix : {', '.join(price)}")
-    #     print(f"Localisation : {location}")
-    #     print(f"Type : {ad_type}")
-    #     print(f"Lien : {link}")
-    #     print('-' * 50)
-    #     global_compteur += 1
-
-
-"""
-    # Ensuite, afficher les appartements
-    print("\nAppartements :")
-    for title, location, price, ad_type in appartements:
-        print(f"\nTitre : {title}")
-        print(f"Localisation : {location}")
-        print(f"Prix : {', '.join(price)}")
-        print(f"Type : {ad_type}")
-"""
-
+    save_to_yaml('maisons.yaml', ads_bailleur_)
 
 
 # Si ce fichier est exécuté directement, la fonction suivante sera appelée
