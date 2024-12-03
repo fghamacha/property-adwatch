@@ -67,19 +67,6 @@ def get_ads_4(url_bailleur):
             }
         compteur_maison +=1
         maisons_yml.append(logement)
-        # # Afficher les informations -- à commenter
-        # print(f"Titre : {title}")
-        # print(f"Localisation : {location}")
-        # print(f"Prix : {price} €")
-        # print(f"Type : {product_type}")
-        # print(f"Surface : {surface} {surface_unit}")
-        # # print(f"Description : {description}")
-        # print(f"Chambres : {bedrooms}")
-        # print(f"Pièces : {rooms}")
-        # print(f"Contact : {contact_name}")
-        # print(f"Téléphone : {contact_phone}")
-        # print(f"Lien : {link}")
-        # print("-" * 50)
 
     ads_bailleur_ = {base_detail_url: maisons_yml}
     apparts_bailleur_ = {base_detail_url: appartements_yml}

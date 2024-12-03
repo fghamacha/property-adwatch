@@ -94,39 +94,7 @@ def get_ads_2(url_bailleur):
     save_to_yaml('maisons.yaml', ads_bailleur_)
 
 
-    # Maisons
-    # with open('site_2_maisons.yaml', 'w') as file:
-    #     yaml.dump(ads_bailleur_, file, default_flow_style=False, allow_unicode=True)
-    # Afficher les résultats triés
     
-    """
-    global_compteur = 1
-   
-    print("################# Site 2" ,base_detail_url, "#" * 50)
-    print("Maisons et Pavillons",url_bailleur)
-    print('#' * 100)
-
-    for title, price, location, features, link in maisons_pavillons:
-        print(f'### Offre {global_compteur}: ###')
-        print(f'Titre: {title}')
-        print(f'Prix: {price}')
-        print(f'Localisation: {location}')
-        print(f'Caractéristiques: {features}')
-        print(f'Lien: {link}')
-        print('-' * 50)
-        global_compteur += 1
-
-    # Ensuite, afficher les appartements
-    for title, price, location, features, link in appartements:
-        print(f'Offre {global_compteur}:')
-        print(f'Titre: {title}')
-        print(f'Prix: {price}')
-        print(f'Localisation: {location}')
-        print(f'Caractéristiques: {features}')
-        print(f'Lien: {link}')
-        print('-' * 40)
-        global_compteur += 1
-    """
 
 # Si ce fichier est exécuté directement, la fonction suivante sera appelée
 
