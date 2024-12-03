@@ -8,7 +8,7 @@ def main():
     url_bailleur_4 = os.getenv('URL_BAILLEUR_4')
    
 #    print("\n################# Site 1 #################")
-    subprocess.run(["python", "site_1.py", url_bailleur_1])
+#    subprocess.run(["python", "site_1.py", url_bailleur_1])
     
 #    print("\n################# site 2 #################\n")
     subprocess.run(["python", "site_2.py", url_bailleur_2])
