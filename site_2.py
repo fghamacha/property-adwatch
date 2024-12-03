@@ -2,6 +2,8 @@ import requests
 from bs4 import BeautifulSoup
 import yaml
 import sys
+from save_to_yaml import save_to_yaml
+
 
 
 def get_ads_2(url_bailleur):
@@ -74,7 +76,7 @@ def get_ads_2(url_bailleur):
                             'prix': price,
                             'localisation': location,
                             'type': features,
-                            'lien': link
+                            'lien': full_link
                         }
                         compteur_maison +=1
                         maisons_yml.append(logement)
@@ -88,9 +90,13 @@ def get_ads_2(url_bailleur):
                 # create maisons.yaml file content
     ads_bailleur_ = {url_bailleur: maisons_yml}
     # Enregistrer les données dans un fichier YAML
+    
+    save_to_yaml('maisons.yaml', ads_bailleur_)
+
+
     # Maisons
-    with open('maisons.yaml', 'w') as file:
-        yaml.dump(ads_bailleur_, file, default_flow_style=False, allow_unicode=True)
+    # with open('site_2_maisons.yaml', 'w') as file:
+    #     yaml.dump(ads_bailleur_, file, default_flow_style=False, allow_unicode=True)
     # Afficher les résultats triés
     
     """
