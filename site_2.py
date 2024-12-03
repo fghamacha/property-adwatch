@@ -77,11 +77,12 @@ def get_ads_2(url_bailleur):
                             'lien': link
                         }
                         compteur_maison +=1
+                        logement['features'] = str(features)
                         maisons_yml.append(logement)
                     else:
                         appartements.append((title_text, price, location, features, full_link))
             ads_bailleur_ = {url_bailleur: maisons_yml}
-            apparts_bailleur_ = {url_bailleur: appartements_yml}
+            # apparts_bailleur_ = {url_bailleur: appartements_yml}
 
         # Passer à la page suivante
         page_number += 1
