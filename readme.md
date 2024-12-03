@@ -1,6 +1,81 @@
 
+# Property Ad Watch
+
+Property Ad Watch is a Python-based web scraping project that collects real estate listings from multiple websites. The project centralizes the collected data in a shared YAML file for easy analysis and storage.
+
 How to get the content of a web site 
 we use the python function requests.get(URL) from the librery  requests
+
+# Features
+
+- Multi-Site Scraping: Extract data from multiple real estate websites.
+- Data Aggregation: Append and merge new listings into a shared YAML file.
+- Customizable: Easily add new sites by creating new Python scripts.
+- Automated Execution: Leverages GitHub Actions for scheduled or manual execution
+
+# Project Structure
+
+project/
+│
+├── site_1.py           # Scraper for site 1
+├── site_2.py           # Scraper for site 2
+├── save_to_yaml.py     # Utility to save data to a shared YAML file
+├── requirements.txt    # Python dependencies
+├── .github/
+│   └── workflows/
+│       └── main.yml   # GitHub Actions workflow to run python scripts and display yaml file
+└── README.md           # Project documentation
+
+# How It Works
+1. Scrapers: Each scraper script (site_1.py, site_2.py, etc.) scrapes property listings from a specific website, extracting details like title, price, location, features, and a link to the listing.
+
+2. Data Storage: Listings are saved to a shared YAML file (maisons.yaml). The save_to_yaml.py python script ensures that data from different scripts is merged without overwriting existing entries.
+
+3. Execution:
+
+- The main entry point for running all scrapers is main.py.
+- GitHub Actions is configured to execute the scripts automatically on:
+    - Push to the main branch.
+    - Scheduled daily at 8:00 AM UTC.
+    - Manual trigger on other branches.
+
+##  Usage
+
+#### Prerequisites
+- Python 3.9 or higher
+- Install dependencies:
+
+```sh
+pip install -r requirements.txt
+```
+#### Run Locally
+To scrape data manually, execute the scraper scripts with the desired URL:
+
+```sh
+python <MY_SITE>.py "https://<MY_SITE>"
+```
+
+#### Run with GitHub Actions
+
+- Push changes to the main branch to trigger the workflow automatically.
+- Use the GitHub Actions interface to trigger workflows manually on other branches.
+
+#### Configuration
+
+###### Environment Variables
+
+- Define environment variables in the GitHub repository settings for dynamic URLs:
+- URL_BAILLEUR_1
+- URL_BAILLEUR_2
+- URL_BAILLEUR_4
+
+These will be injected into the scripts during execution.
+
+# License
+
+ i didn't define any license for this project.
+
+# Play with python
 
 ```py
 # Import requests librery
@@ -28,6 +103,6 @@ response = requests.get(url_bailleur)
 soup = BeautifulSoup(response.text, 'html.parser')
 ```
 
-Webography
+# Webography
 
 - [Request Librery](https://requests.readthedocs.io/en/latest/)
