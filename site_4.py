@@ -2,6 +2,8 @@ import requests
 from bs4 import BeautifulSoup
 import sys
 import json
+from save_to_yaml import save_to_yaml
+
 
 def get_ads_4(url_bailleur):
     # URL de base pour les détails des logements, dérivé de url_bailleur
@@ -13,38 +15,59 @@ def get_ads_4(url_bailleur):
     response = requests.get(url_bailleur, headers=headers)
     # Initialisation de BeautifulSoup pour analyser le contenu HTML
     soup = BeautifulSoup(response.text, 'html.parser')
+    # Initialiser les listes pour les types de logements
+    maisons_pavillons = []
+    appartements = []
+    maisons_yml = []
+    appartements_yml = []
+    compteur_maison = 1
+    compteur_appartement =1
     # Localiser le script avec l'ID `__NEXT_DATA__`
     script_tag = soup.find("script", id="__NEXT_DATA__", type="application/json")
     
     json_data = json.loads(script_tag.string)
         
         # Accéder aux offres dans le JSON
-    logements = json_data['props']['pageProps']['defaultSearchResponse']['hits']['hits']
+    ads = json_data['props']['pageProps']['defaultSearchResponse']['hits']['hits']
     
     print("\n################# Site 4" ,base_detail_url, "#" * 50)
     print("Maisons et Pavillons",url_bailleur)
     print('#' * 100)
 
     # Extraire les informations pour chaque offre
-    for logement in logements:
+    for ad in ads:
         # Extraire les informations spécifiques
-        title = logement['_source'].get('title')
-        ville = logement['_source']['data'].get('ville',{}).get('value')
-        code_postal  = logement['_source']['data'].get('code_postal',{}).get('value')
+        title = ad['_source'].get('title')
+        ville = ad['_source']['data'].get('ville',{}).get('value')
+        code_postal  = ad['_source']['data'].get('code_postal',{}).get('value')
         location = ville + ' ' + code_postal
-        price = logement['_source'].get('transaction', {}).get('price')
-        product_type = logement['_source'].get('productType', {}).get('description')
-        reference   =   logement['_source'].get('reference')
+        price = ad['_source'].get('transaction', {}).get('price')
+        product_type = ad['_source'].get('productType', {}).get('description')
+        reference   =   ad['_source'].get('reference')
         link    =   f"{base_detail_url}offre/{title.replace(' ', '%20')}/{reference}"
-        surface = logement['_source']['data'].get('surface_habitable', {}).get('value')
-        surface_unit = logement['_source']['data'].get('surface_habitable', {}).get('unit')
+        surface = ad['_source']['data'].get('surface_habitable', {}).get('value')
+        surface_unit = ad['_source']['data'].get('surface_habitable', {}).get('unit')
         # description = offer['_source'].get('description', 'N/A')
-        bedrooms = logement['_source']['data'].get('nombre_de_chambres', {}).get('value')
-        rooms = logement['_source'].get('data', {}).get('nb_pieces_logement', {}).get('value')
-        contact_name = logement['_source']['data'].get('contact_a_afficher', {}).get('value')
-        contact_phone = logement['_source']['data'].get('telephone_mobile_a_afficher', {}).get('value')
-
-        # Afficher les informations
+        bedrooms = ad['_source']['data'].get('nombre_de_chambres', {}).get('value')
+        rooms = ad['_source'].get('data', {}).get('nb_pieces_logement', {}).get('value')
+        contact_name = ad['_source']['data'].get('contact_a_afficher', {}).get('value')
+        contact_phone = ad['_source']['data'].get('telephone_mobile_a_afficher', {}).get('value')
+        logement  =   {
+            'id': compteur_maison,
+            'titre': title,
+            'prix': price,
+            'localisation': location,
+            'type': product_type,
+            'Surface': "{surface} {surface_unit}",
+            'Chambres': bedrooms,
+            'Pièces': rooms,
+            'Contact': contact_name,
+            'Téléphone': contact_phone,
+            'lien': link
+            }
+        compteur_maison +=1
+        maisons_yml.append(logement)
+        # Afficher les informations -- à commenter
         print(f"Titre : {title}")
         print(f"Localisation : {location}")
         print(f"Prix : {price} €")
@@ -58,8 +81,13 @@ def get_ads_4(url_bailleur):
         print(f"Lien : {link}")
         print("-" * 50)
 
-    maisons_pavillons = []
-    appartements = []
+    ads_bailleur_ = {url_bailleur: maisons_yml}
+    apparts_bailleur_ = {url_bailleur: appartements_yml}
+
+    # Enregistrer les données dans un fichier YAML
+    save_to_yaml('maisons.yaml', ads_bailleur_)
+
+
 
 if __name__ == "__main__":
     url = sys.argv[1]
