@@ -70,7 +70,7 @@ def get_ads_2(url_bailleur):
                         maisons_pavillons.append((title_text, price, location, features, full_link))
                         logement  =   {
                             'id': compteur_maison,
-                            'titre': title,
+#                           'titre': title,
                             'prix': price,
                             'localisation': location,
 #                           'type': features,
