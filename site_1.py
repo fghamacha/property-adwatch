@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import yaml
 import sys
+from save_to_yaml import save_to_yaml
 
 def get_ads_1(url_bailleur):
     # URL de base pour les détails des logements, dérivé de url_bailleur
@@ -77,13 +78,15 @@ def get_ads_1(url_bailleur):
 
     # Enregistrer les données dans un fichier YAML
     # Maisons
-    with open('maisons.yaml', 'w') as file:
-        yaml.dump(ads_bailleur_, file, default_flow_style=False, allow_unicode=True)
-    # Appartement
-    with open('appartements.yaml', 'w') as file:
-        yaml.dump(apparts_bailleur_, file, default_flow_style=False, allow_unicode=True)
+        # Enregistrer les données dans un fichier YAML
+    # save_to_yaml('maisons.yaml', ads_bailleur_)
+    # with open('maisons.yaml', 'w') as file:
+    #     yaml.dump(ads_bailleur_, file, default_flow_style=False, allow_unicode=True)
+    # # Appartement
+    # with open('appartements.yaml', 'w') as file:
+    #     yaml.dump(apparts_bailleur_, file, default_flow_style=False, allow_unicode=True)
     # Afficher les résultats triés
-    global_compteur = 1
+    # global_compteur = 1
     # print(soup)
     # Afficher les maisons et pavillons en premier
     # print("\n################# Site 1" ,base_detail_url, "#" * 50)
