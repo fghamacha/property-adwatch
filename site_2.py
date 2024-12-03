@@ -73,11 +73,10 @@ def get_ads_2(url_bailleur):
                             'titre': title,
                             'prix': price,
                             'localisation': location,
-                            'type': features,
+                            # 'type': features,
                             'lien': link
                         }
                         compteur_maison +=1
-                        logement['features'] = str(features)
                         maisons_yml.append(logement)
                     else:
                         appartements.append((title_text, price, location, features, full_link))
@@ -91,6 +90,8 @@ def get_ads_2(url_bailleur):
         with open('maisons.yaml', 'w') as file:
             yaml.dump(ads_bailleur_, file, default_flow_style=False, allow_unicode=True)
     # Afficher les résultats triés
+    
+    """
     global_compteur = 1
    
     print("\n################# Site 2" ,base_detail_url, "#" * 50)
@@ -106,7 +107,7 @@ def get_ads_2(url_bailleur):
         print(f'Lien: {link}')
         print('-' * 50)
         global_compteur += 1
-    """
+
     # Ensuite, afficher les appartements
     for title, price, location, features, link in appartements:
         print(f'Offre {global_compteur}:')
