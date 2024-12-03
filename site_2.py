@@ -73,7 +73,7 @@ def get_ads_2(url_bailleur):
 #                           'titre': title,
                             'prix': price,
                             'localisation': location,
-#                           'type': features,
+                            'type': features,
                             'lien': link
                         }
                         compteur_maison +=1
