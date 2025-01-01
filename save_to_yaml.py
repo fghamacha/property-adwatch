@@ -10,7 +10,7 @@ def save_to_yaml(file_path, data):
     """
     # Charger les données existantes
     if os.path.exists(file_path):
-        with open(file_path, 'r') as file:
+        with open(file_path, 'r', encoding="utf-8") as file:
             existing_data = yaml.safe_load(file) or {}  # Charger un dict vide si le fichier est vide
     else:
         existing_data = {}
@@ -19,5 +19,5 @@ def save_to_yaml(file_path, data):
     existing_data.update(data)
 
     # Sauvegarder les données mises à jour dans le fichier YAML
-    with open(file_path, 'w') as file:
-        yaml.dump(existing_data, file, default_flow_style=False, allow_unicode=True)
+    with open(file_path, 'w', encoding="utf-8") as file:
+        yaml.dump(existing_data, file, default_flow_style=False, allow_unicode=True, sort_keys=False)
