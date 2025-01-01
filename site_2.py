@@ -8,7 +8,7 @@ from save_to_yaml import save_to_yaml
 
 def get_ads_2(url_bailleur):
     # URL de base pour les détails des logements, dérivé de url_bailleur
-    base_detail_url = url_bailleur.replace('/resultats-vente-{}-defaut-', '')
+    base_detail_url = url_bailleur.replace('resultats-vente-{}-defaut-', '{}')
 
     # Initialiser le compteur de pages
     page_number = 1

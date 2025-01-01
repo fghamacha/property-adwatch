@@ -44,7 +44,7 @@ def get_ads_4(url_bailleur):
         price = ad['_source'].get('transaction', {}).get('price')
         product_type = ad['_source'].get('productType', {}).get('description')
         reference   =   ad['_source'].get('reference')
-        link    =   f"{base_detail_url}offre/{title.replace(' ', '%20')}/{reference}"
+        link    =   f"{base_detail_url}/offre/{title.replace(' ', '%20')}/{reference}"
         surface = ad['_source']['data'].get('surface_habitable', {}).get('value')
         surface_unit = ad['_source']['data'].get('surface_habitable', {}).get('unit')
         # description = offer['_source'].get('description', 'N/A')
