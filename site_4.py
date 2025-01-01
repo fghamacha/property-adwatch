@@ -3,11 +3,12 @@ from bs4 import BeautifulSoup
 import sys
 import json
 from save_to_yaml import save_to_yaml
+import yaml
 
 
 def get_ads_4(url_bailleur):
     # URL de base pour les détails des logements, dérivé de url_bailleur
-    base_detail_url = url_bailleur.replace('rechercher?distance=0km&place=%C3%8Ele-de-France&place=%C3%8ELE-DE-FRANCE%3AIDF&tab=PURCHASE&type=Maison', '')
+    base_detail_url = url_bailleur.replace('/rechercher?distance=0km&place=%C3%8Ele-de-France&place=%C3%8ELE-DE-FRANCE%3AIDF&tab=PURCHASE&type=Maison', '')
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36'
     }
@@ -16,12 +17,11 @@ def get_ads_4(url_bailleur):
     # Initialisation de BeautifulSoup pour analyser le contenu HTML
     soup = BeautifulSoup(response.text, 'html.parser')
     # Initialiser les listes pour les types de logements
-    maisons_pavillons = []
-    appartements = []
-    maisons_yml = []
-    appartements_yml = []
     compteur_maison = 1
     compteur_appartement =1
+    maisons = {
+        base_detail_url: {}
+    }
     # Localiser le script avec l'ID `__NEXT_DATA__`
     script_tag = soup.find("script", id="__NEXT_DATA__", type="application/json")
     
@@ -52,29 +52,26 @@ def get_ads_4(url_bailleur):
         rooms = ad['_source'].get('data', {}).get('nb_pieces_logement', {}).get('value')
         contact_name = ad['_source']['data'].get('contact_a_afficher', {}).get('value')
         contact_phone = ad['_source']['data'].get('telephone_mobile_a_afficher', {}).get('value')
-        logement  =   {
+        logement  =    {
             'id': compteur_maison,
-            'titre': title,
-            'prix': price,
-            'localisation': location,
-            'type': product_type,
+            'Titre': title,
+            'Prix': price,
+            'Localisation': location,
+            'Type': product_type,
             'Surface': surface,
             'Chambres': bedrooms,
             'Pièces': rooms,
             'Contact': contact_name,
             'Téléphone': contact_phone,
-            'lien': link
-            }
+            'Lien': link
+        }
+        maisons[base_detail_url][f"logement {compteur_maison}"] = logement
         compteur_maison +=1
-        maisons_yml.append(logement)
 
-    ads_bailleur_ = {base_detail_url: maisons_yml}
-    apparts_bailleur_ = {base_detail_url: appartements_yml}
 
     # Enregistrer les données dans un fichier YAML
-    save_to_yaml('maisons.yaml', ads_bailleur_)
-
-
+    # print(logements)
+    save_to_yaml('maisons.yaml', maisons)
 
 if __name__ == "__main__":
     url = sys.argv[1]

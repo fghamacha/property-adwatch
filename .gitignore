@@ -1,2 +1,6 @@
 chromedriver.exe
 secrets.ini
+maisons.yaml
+logements.yaml
+__pycache__
+.env

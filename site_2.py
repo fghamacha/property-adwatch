@@ -8,17 +8,19 @@ from save_to_yaml import save_to_yaml
 
 def get_ads_2(url_bailleur):
     # URL de base pour les détails des logements, dérivé de url_bailleur
-    base_detail_url = url_bailleur.replace('resultats-vente-{}-defaut-', '{}')
+    base_detail_url = url_bailleur.replace('/resultats-vente-{}-defaut-', '')
 
     # Initialiser le compteur de pages
     page_number = 1
     compteur_maison = 1
     compteur_appartement = 1
     # Initialiser les listes pour les types de logements
-    maisons_pavillons = []
-    appartements = []
-    maisons_yml = []
-    appartements_yml = [] 
+    maisons = {
+        base_detail_url: {}
+    }
+    appartements = {
+        base_detail_url: {}
+    }
     
     # Liste des préfixes de codes postaux pour l'Île-de-France
     idf_prefixes = ['75', '77', '78', '91', '92', '93', '94', '95']
@@ -69,32 +71,34 @@ def get_ads_2(url_bailleur):
                     
                     # Trier les logements en fonction du type (maison/pavillon en premier)
                     if "maison" in title_text.lower() or "pavillon" in title_text.lower():
-                        maisons_pavillons.append((title_text, price, location, features, full_link))
                         logement  =   {
                             'id': compteur_maison,
 #                           'titre': title,
-                            'prix': price,
-                            'localisation': location,
-                            'type': features,
-                            'lien': full_link
+                            'Prix': price,
+                            'Localisation': location,
+                            'Type': features,
+                            'Lien': full_link
                         }
+                        maisons[base_detail_url][f"logement {compteur_maison}"] = logement
                         compteur_maison +=1
-                        maisons_yml.append(logement)
                     else:
-                        appartements.append((title_text, price, location, features, full_link))
-
-            # apparts_bailleur_ = {url_bailleur: appartements_yml}
+                        logement  =   {
+                            'id': compteur_appartement,
+                            # 'Titre': title,
+                            'Prix': price,
+                            'Localisation': location,
+                            'Type': features,
+                            'Lien': full_link
+                        }
+                    compteur_appartement +=1
+                    appartements[base_detail_url][f"logement {compteur_appartement}"] = logement
 
         # Passer à la page suivante
         page_number += 1
-                # create maisons.yaml file content
-    ads_bailleur_ = {base_detail_url: maisons_yml}
-    # Enregistrer les données dans un fichier YAML
-    
-    save_to_yaml('maisons.yaml', ads_bailleur_)
 
+    # Enregistrer les données dans un fichier YAML 
+    save_to_yaml('maisons.yaml', maisons)
 
-    
 
 # Si ce fichier est exécuté directement, la fonction suivante sera appelée
 
