@@ -1,6 +1,12 @@
 import os
 import sys
 import subprocess
+from dotenv import load_dotenv
+import platform  # Pour détecter le système d'exploitation
+
+
+
+load_dotenv()  # Charger les variables d'environnement
 
 def main():
     url_bailleur_1 = os.getenv('URL_BAILLEUR_1')
@@ -17,7 +23,11 @@ def main():
     subprocess.run(["python", "site_4.py", url_bailleur_4])
 
 #    print("\n################# Maisons yml #################\n")
-    subprocess.run(['cat', 'maisons.yaml'])
+    # Afficher le contenu de maisons.yaml en fonction du système d'exploitation
+    if platform.system() == "Windows":
+        subprocess.run(['type', 'maisons.yaml'], shell=True)
+    else:
+        subprocess.run(['cat', 'maisons.yaml'], shell=True)
 
 
 if __name__ == "__main__":
