@@ -1,0 +1,4 @@
+- 0.0.2 : 
+    - Add new site_0 within the new py file site_0.py
+    - Add appartements.yml file containing a list of appartment's ads
+    - Sending ads by email ( new python code gmail.py)
