@@ -9,13 +9,13 @@ import platform  # Pour détecter le système d'exploitation
 load_dotenv()  # Charger les variables d'environnement
 
 def main():
-    # url_bailleur_0 = os.getenv('URL_BAILLEUR_0')
+    url_bailleur_0 = os.getenv('URL_BAILLEUR_0')
     url_bailleur_1 = os.getenv('URL_BAILLEUR_1')
     url_bailleur_2 = os.getenv('URL_BAILLEUR_2')
     url_bailleur_4 = os.getenv('URL_BAILLEUR_4')
 
 #    print("\n################# Site O #################")
-    subprocess.run(["python", "site_0.py", url_bailleur_0])   
+    # subprocess.run(["python", "site_0.py", url_bailleur_0])   
 #    print("\n################# Site 1 #################")
     subprocess.run(["python", "site_1.py", url_bailleur_1])
     
