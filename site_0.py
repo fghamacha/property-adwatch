@@ -69,15 +69,6 @@ def get_ads_0(url):
             compteur_maison +=1
 
 
-            # Ajouter les informations à la liste
-            ads.append({
-                "title": title,
-                "price": price,
-                "description": description,
-                "location": location,
-                "date": date,
-                "link": f"{base_detail_url}{link}",
-            })
     # Enregistrer les données dans un fichier YAML
     save_to_yaml('maisons.yaml', maisons)
     save_to_yaml('appartements.yaml', appartements)   
@@ -86,4 +77,4 @@ def get_ads_0(url):
 if __name__ == "__main__":
     url = sys.argv[1]
     # Récupérer les annonces
-    ads = get_ads_0(url)
+    get_ads_0(url)
