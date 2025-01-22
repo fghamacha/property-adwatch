@@ -15,7 +15,7 @@ def main():
     url_bailleur_4 = os.getenv('URL_BAILLEUR_4')
 
 #    print("\n################# Site O #################")
-    # subprocess.run(["python", "site_0.py", url_bailleur_0])   
+    subprocess.run(["python", "site_0.py", url_bailleur_0])   
 #    print("\n################# Site 1 #################")
     subprocess.run(["python", "site_1.py", url_bailleur_1])
     
