@@ -28,6 +28,7 @@ jobs:
 
     - name: Run the script
       env:
+        URL_BAILLEUR_0: ${{ vars.URL_BAILLEUR_0 }}
         URL_BAILLEUR_1: ${{ vars.URL_BAILLEUR_1 }}
         URL_BAILLEUR_2: ${{ vars.URL_BAILLEUR_2 }}
         URL_BAILLEUR_4: ${{ vars.URL_BAILLEUR_4 }}
