@@ -10,7 +10,7 @@ on:
 
 jobs:
   run-script:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
     - name: Checkout code
@@ -31,26 +31,9 @@ jobs:
         URL_BAILLEUR_1: ${{ vars.URL_BAILLEUR_1 }}
         URL_BAILLEUR_2: ${{ vars.URL_BAILLEUR_2 }}
         URL_BAILLEUR_4: ${{ vars.URL_BAILLEUR_4 }}
+        EMAIL_SENDER: ${{ secrets.EMAIL_SENDER }}
+        EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+        EMAIL_RECIPIENTS: ${{ secrets.EMAIL_RECIPIENTS }}
       run: |
         python main.py
     
-    # - name: Send mail
-    #   uses: dawidd6/action-send-mail@v3
-    #   with:
-    #     connection_url: ${{secrets.MAIL_CONNECTION}}
-    #     # Required mail server address if not connection_url:
-    #     server_address: smtp.gmail.com
-    #     # Server port, default 25:
-    #     server_port: 465
-    #     # Optional whether this connection use TLS (default is true if server_port is 465)
-    #     secure: true
-    #     # Optional (recommended) mail server username:
-    #     username: ${{secrets.MAIL_USERNAME}}
-    #     # Optional (recommended) mail server password:
-    #     password: ${{secrets.MAIL_PASSWORD}}
-    #     # Required mail subject:
-    #     subject: Github Actions job result
-    #     # Required recipients' addresses:
-    #     to: obiwan@example.com,yoda@example.com
-    #     # Required sender full name (address can be skipped):
-    #     from: Luke Skywalker # <user@example.com>
