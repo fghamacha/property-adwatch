@@ -8,7 +8,7 @@ import yaml
 
 def get_ads_4(url_bailleur):
     # URL de base pour les détails des logements, dérivé de url_bailleur
-    base_detail_url = url_bailleur.replace('/rechercher?distance=0km&place=%C3%8Ele-de-France&place=%C3%8ELE-DE-FRANCE%3AIDF&tab=PURCHASE&type=Maison', '')
+    base_detail_url = url_bailleur.replace('rechercher?distance=0km&place=%C3%8Ele-de-France&place=%C3%8ELE-DE-FRANCE%3AIDF&tab=PURCHASE&type=Maison', '')
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36'
     }
@@ -44,7 +44,7 @@ def get_ads_4(url_bailleur):
         price = ad['_source'].get('transaction', {}).get('price')
         product_type = ad['_source'].get('productType', {}).get('description')
         reference   =   ad['_source'].get('reference')
-        link    =   f"{base_detail_url}/offre/{title.replace(' ', '%20')}/{reference}"
+        link    =   f"{base_detail_url}offre/{title.replace(' ', '%20')}/{reference}"
         surface = ad['_source']['data'].get('surface_habitable', {}).get('value')
         surface_unit = ad['_source']['data'].get('surface_habitable', {}).get('unit')
         # description = offer['_source'].get('description', 'N/A')

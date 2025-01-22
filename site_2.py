@@ -90,15 +90,15 @@ def get_ads_2(url_bailleur):
                             'Type': features,
                             'Lien': full_link
                         }
-                    compteur_appartement +=1
+                    
                     appartements[base_detail_url][f"logement {compteur_appartement}"] = logement
-
+                    compteur_appartement +=1
         # Passer à la page suivante
         page_number += 1
 
     # Enregistrer les données dans un fichier YAML 
     save_to_yaml('maisons.yaml', maisons)
-
+    save_to_yaml('appartements.yaml', appartements) 
 
 # Si ce fichier est exécuté directement, la fonction suivante sera appelée
 
