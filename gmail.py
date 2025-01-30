@@ -10,7 +10,8 @@ from datetime import datetime
 now = datetime.now()
 
 # Convert datetime to string using strftime
-date_str = now.strftime('%d-%m-%Y')
+date_str = now.strftime('%d-%m-%Y  %H:%M')
+formatted_date = f"########## {date_str} ##########"
 
 load_dotenv()  # Charger les variables d'environnement
 
@@ -30,6 +31,10 @@ with open('appartements.yaml', 'r', encoding='utf-8') as file:
 yaml_content_maisons = yaml.dump(maisons_data, allow_unicode=True, sort_keys=False)
 yaml_content_appartements = yaml.dump(appartements_data, allow_unicode=True, sort_keys=False)
 
+# Create new variable containing date and yaml content
+email_content_maisons= f"{formatted_date}\n{yaml_content_maisons}"
+email_content_appartement= f"{formatted_date}\n{yaml_content_appartements}"
+
 
 def send_email(subject, body, sender, recipients, password):
     msg = MIMEText(body)
@@ -42,5 +47,5 @@ def send_email(subject, body, sender, recipients, password):
     print("Message ",subject," sent!")
 
 
-send_email('Maisons à vendre : ' + date_str, yaml_content_maisons, sender, recipients, password)
-send_email('Appartement à vendre: ' + date_str, yaml_content_appartements, sender, recipients, password)
+send_email('Appartement à vendre', email_content_maisons, sender, recipients, password)
+send_email('Maisons à vendre', email_content_appartement, sender, recipients, password)
