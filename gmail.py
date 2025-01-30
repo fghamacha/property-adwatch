@@ -32,8 +32,8 @@ yaml_content_maisons = yaml.dump(maisons_data, allow_unicode=True, sort_keys=Fal
 yaml_content_appartements = yaml.dump(appartements_data, allow_unicode=True, sort_keys=False)
 
 # Create new variable containing date and yaml content
-email_content_maisons= f"{formatted_date}\n{yaml_content_maisons}"
-email_content_appartement= f"{formatted_date}\n{yaml_content_appartements}"
+email_content_maisons= f"{formatted_date}\n\n{yaml_content_maisons}"
+email_content_appartement= f"{formatted_date}\n\n{yaml_content_appartements}"
 
 
 def send_email(subject, body, sender, recipients, password):
