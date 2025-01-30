@@ -47,5 +47,5 @@ def send_email(subject, body, sender, recipients, password):
     print("Message ",subject," sent!")
 
 
-send_email('Appartement à vendre', email_content_maisons, sender, recipients, password)
-send_email('Maisons à vendre', email_content_appartement, sender, recipients, password)
+send_email('Appartement à vendre', email_content_appartement, sender, recipients, password)
+send_email('Maisons à vendre', email_content_maisons, sender, recipients, password)
