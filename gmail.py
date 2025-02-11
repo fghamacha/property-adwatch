@@ -1,3 +1,4 @@
+from email.mime.multipart import MIMEMultipart
 import smtplib
 from email.mime.text import MIMEText
 from dotenv import load_dotenv
@@ -51,7 +52,7 @@ email_body_appartements = template.render(date=date_str, annonces=appartements_d
 
 def send_email(subject, body, sender, recipients, password, thread_id_env_var):
     
-    msg = MIMEText(body)
+    msg = MIMEMultipart()
     msg['Subject'] = subject
     msg['From'] = sender
     msg['To'] = ', '.join(recipients)
