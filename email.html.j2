@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offres Immobilières</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .container { width: 90%; margin: auto; }
+        h2 { color: #0073e6; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #0073e6; color: white; }
+        .link { color: #0073e6; text-decoration: none; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📢 Offres Immobilières</h1>
+        <p><strong>Date :</strong> {{ date }}</p>
+
+        {% for site, logements in annonces.items() %}
+            <h2>🏠 Annonces de <a href="{{ site }}" class="link">{{ site }}</a></h2>
+            <table>
+                <tr>
+                    <th>#</th>
+                    <th>Prix</th>
+                    <th>Localisation</th>
+                    <th>Type</th>
+                    <th>Surface</th>
+                    <th>Chambres</th>
+                    <th>Pièces</th>
+                    <th>Lien</th>
+                </tr>
+                {% for logement in logements.values() %}
+                <tr>
+                    <td>{{ logement.get('id', 'N/A') }}</td>
+                    <td>{{ logement.get('Prix', 'Non renseigné') }}</td>
+                    <td>{{ logement.get('Localisation', 'Non renseigné') }}</td>
+                    <td>{{ logement.get('Type', 'Non renseigné') }}</td>
+                    <td>{{ logement.get('Surface', 'N/A') }} m²</td>
+                    <td>{{ logement.get('Chambres', 'N/A') }}</td>
+                    <td>{{ logement.get('Pièces', 'N/A') }}</td>
+                    <td>
+                        {% if logement.get('Lien') %}
+                            <a href="{{ logement['Lien'] }}" class="link">Voir l'offre</a>
+                        {% else %}
+                            N/A
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        {% endfor %}
+    </div>
+</body>
+</html>
