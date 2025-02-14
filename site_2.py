@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import yaml
 import sys
 from save_to_yaml import save_to_yaml
-
+from scripts.extract_features import extract_features
 
 
 def get_ads_2(url_bailleur):
@@ -53,7 +53,7 @@ def get_ads_2(url_bailleur):
             title = ad.find('h2')
             if title:
                 title_text = title.text.strip()
-                price = ad.find('span', class_='custom-figPrice').text.strip() if ad.find('span', class_='custom-figPrice') else "No Price"
+                # price = ad.find('span', class_='custom-figPrice').text.strip() if ad.find('span', class_='custom-figPrice') else "No Price"
                 location = ad.find('div', class_='cardAddress').text.strip() if ad.find('div', class_='cardAddress') else "No Location"
                 
                 # Extraire le lien vers la page de détail
@@ -66,6 +66,7 @@ def get_ads_2(url_bailleur):
                     features_list = ad.find('ul', class_='cardFeat')
                     if features_list:
                         features = ', '.join(item.text.strip() for item in features_list.find_all('li'))
+                        price, rooms, surface = extract_features(features)
                     else:
                         features = "No Features"
                     
@@ -77,6 +78,8 @@ def get_ads_2(url_bailleur):
                             'Prix': price,
                             'Localisation': location,
                             'Type': features,
+                            'Surface': surface,
+                            'Pièces': rooms,
                             'Lien': full_link
                         }
                         maisons[base_detail_url][f"logement {compteur_maison}"] = logement
@@ -88,6 +91,8 @@ def get_ads_2(url_bailleur):
                             'Prix': price,
                             'Localisation': location,
                             'Type': features,
+                            'Surface': surface,
+                            'Pièces': rooms,
                             'Lien': full_link
                         }
                     

@@ -3,6 +3,8 @@ from bs4 import BeautifulSoup
 import yaml
 import sys
 from save_to_yaml import save_to_yaml
+from scripts.extract_number_from_type import extract_number_from_type
+
 
 def get_ads_1(url_bailleur):
     # URL de base pour les détails des logements, dérivé de url_bailleur
@@ -44,16 +46,17 @@ def get_ads_1(url_bailleur):
             ad_type = first_li.text.strip() if first_li else 'Type non disponible'
         else:
             ad_type = 'Type non disponible'
-
+        rooms = extract_number_from_type(ad_type)
         # Trier les annonces en fonction du type de logement
         if "maison" in ad_type.lower() or "pavillon" in ad_type.lower():
             logement  =   {
                 'id': compteur_maison,
-                'titre': title,
-                'prix': ', '.join(price),
-                'localisation': location,
-                'type': ad_type,
-                'lien': link
+                'Titre': title,
+                'Prix': ', '.join(price),
+                'Localisation': location,
+                'Type': ad_type,
+                'Pièces': rooms,
+                'Lien': link
             }
             maisons[base_detail_url][f"logement {compteur_maison}"] = logement
             compteur_maison +=1
@@ -64,6 +67,7 @@ def get_ads_1(url_bailleur):
                 'Prix': ', '.join(price),
                 'Localisation': location,
                 'Type': ad_type,
+                'Pièces': rooms,
                 'Lien': link
             }
             appartements[base_detail_url][f"logement {compteur_appartement}"] = logement

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offres Immobilières</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .container { width: 90%; margin: auto; }
+        h2 { color: #0073e6; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #0073e6; color: white; }
+        .link { color: #0073e6; text-decoration: none; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📢 Offres Immobilières</h1>
+        <p><strong>Date :</strong> {{ date }}</p>
+
+        {% for site, logements in annonces.items() %}
+            <h2>🏠 Annonces de <a href="{{ site }}" class="link">{{ site }}</a></h2>
+
+            {% set columns = {} %}
+            {% for logement in logements.values() %}
+                {% for key, value in logement.items() %}
+                    {% if value %}
+                        {% set _ = columns.update({key: True}) %}
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+
+            <table>
+                <tr>
+                    <th>#</th>
+                    {% if 'Titre' in columns %}<th>Titre</th>{% endif %}
+                    {% if 'Date' in columns %}<th>Date</th>{% endif %}
+                    {% if 'Prix' in columns %}<th>Prix</th>{% endif %}
+                    {% if 'Localisation' in columns %}<th>Localisation</th>{% endif %}
+                    {% if 'Type' in columns %}<th>Type</th>{% endif %}
+                    {% if 'Surface' in columns %}<th>Surface</th>{% endif %}
+                    {% if 'Chambres' in columns %}<th>Chambres</th>{% endif %}
+                    {% if 'Pièces' in columns %}<th>Pièces</th>{% endif %}
+                    {% if 'Contact' in columns %}<th>Contact</th>{% endif %}
+                    {% if 'Téléphone' in columns %}<th>Téléphone</th>{% endif %}
+                    {% if 'Lien' in columns %}<th>Lien</th>{% endif %}
+                </tr>
+                {% for logement in logements.values() %}
+                <tr>
+                    <td>{{ logement.get('id', 'N/A') }}</td>
+                    {% if 'Titre' in columns %}<td>{{ logement.get('Titre', 'Non renseigné') }}</td>{% endif %}
+                    {% if 'Date' in columns %}<td>{{ logement.get('Date', 'Non renseigné') }}</td>{% endif %}
+                    {% if 'Prix' in columns %}<td>{{ logement.get('Prix', 'Non renseigné') }}</td>{% endif %}
+                    {% if 'Localisation' in columns %}<td>{{ logement.get('Localisation', 'Non renseigné') }}</td>{% endif %}
+                    {% if 'Type' in columns %}<td>{{ logement.get('Type', 'Non renseigné') }}</td>{% endif %}
+                    {% if 'Surface' in columns %}<td>{{ logement.get('Surface', 'N/A') }} m²</td>{% endif %}
+                    {% if 'Chambres' in columns %}<td>{{ logement.get('Chambres', 'N/A') }}</td>{% endif %}
+                    {% if 'Pièces' in columns %}<td>{{ logement.get('Pièces', 'N/A') }}</td>{% endif %}
+                    {% if 'Contact' in columns %}<td>{{ logement.get('Contact', 'Non renseigné') }}</td>{% endif %}
+                    {% if 'Téléphone' in columns %}<td>{{ logement.get('Téléphone', 'Non renseigné') }}</td>{% endif %}
+                    {% if 'Lien' in columns %}
+                        <td>
+                            {% if logement.get('Lien') %}
+                                <a href="{{ logement['Lien'] }}" class="link">Voir l'offre</a>
+                            {% else %}
+                                N/A
+                            {% endif %}
+                        </td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </table>
+        {% endfor %}
+    </div>
+</body>
+</html>

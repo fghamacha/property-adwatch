@@ -1,3 +1,4 @@
+from email.mime.multipart import MIMEMultipart
 import smtplib
 from email.mime.text import MIMEText
 from dotenv import load_dotenv
@@ -5,6 +6,8 @@ import os
 import ast
 import yaml
 from datetime import datetime
+from jinja2 import Environment, FileSystemLoader
+
 
 # Get current date and time
 now = datetime.now()
@@ -25,37 +28,52 @@ password = os.getenv('EMAIL_PASSWORD')
 thread_id_maisons = os.getenv('EMAIL_THREAD_ID_MAISONS')
 thread_id_appartements = os.getenv('EMAIL_THREAD_ID_APPARTEMENTS')
 
+# 📂 Fonction pour charger un fichier YAML avec gestion des erreurs
+def load_yaml(filename):
+    try:
+        with open(filename, 'r', encoding='utf-8') as file:
+            data = yaml.safe_load(file)
+            return data if isinstance(data, dict) else {}  # Toujours retourner un dict
+    except Exception as e:
+        print(f"⚠️ Erreur lors du chargement de {filename}: {e}")
+        return {}
+
 # Charger le fichier maisons.yaml en un dictionnaire Python
-with open('maisons.yaml', 'r', encoding='utf-8') as file:
-    maisons_data = yaml.safe_load(file) 
-with open('appartements.yaml', 'r', encoding='utf-8') as file:
-    appartements_data = yaml.safe_load(file)
+maisons_data = load_yaml('maisons.yaml')
+appartements_data = load_yaml('appartements.yaml')
 
-# Convertir le contenu YAML en texte brut
-yaml_content_maisons = yaml.dump(maisons_data, allow_unicode=True, sort_keys=False)
-yaml_content_appartements = yaml.dump(appartements_data, allow_unicode=True, sort_keys=False)
+# 📌 Initialiser Jinja2 pour charger le template
+env = Environment(loader=FileSystemLoader('.'))
+template = env.get_template('email.html.j2')
 
-# Create new variable containing date and yaml content
-email_content_maisons= f"{formatted_date}\n\n{yaml_content_maisons}"
-email_content_appartement= f"{formatted_date}\n\n{yaml_content_appartements}"
-
+# Générer le contenu HTML
+email_body_maisons = template.render(date=date_str, annonces=maisons_data)
+email_body_appartements = template.render(date=date_str, annonces=appartements_data)
 
 def send_email(subject, body, sender, recipients, password, thread_id_env_var):
-    msg = MIMEText(body)
+    
+    msg = MIMEMultipart()
     msg['Subject'] = subject
     msg['From'] = sender
     msg['To'] = ', '.join(recipients)
+
     # Récupérer le Thread-ID depuis l'environnement (si dispo)
     thread_id = os.getenv(thread_id_env_var)
     if thread_id:
         msg['In-Reply-To'] = thread_id
         msg['References'] = thread_id
     
-    with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp_server:
-       smtp_server.login(sender, password)
-       smtp_server.sendmail(sender, recipients, msg.as_string())
-    print("Message ",subject," sent!")
+    # Attacher le HTML
+    msg.attach(MIMEText(body, 'html')) 
+
+    try:
+        with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp_server:
+            smtp_server.login(sender, password)
+            smtp_server.sendmail(sender, recipients, msg.as_string())
+        print(f"Email envoyé : {subject}")
+    except Exception as e:
+        print(f"Erreur d'envoi d'email : {e}")
 
 
-send_email('Appartement à vendre', email_content_appartement, sender, recipients, password, "EMAIL_THREAD_ID_APPARTEMENTS")
-send_email('Maisons à vendre', email_content_maisons, sender, recipients, password, "EMAIL_THREAD_ID_MAISONS")
+send_email('Appartement à vendre', email_body_appartements, sender, recipients, password, "EMAIL_THREAD_ID_APPARTEMENTS")
+send_email('Maisons à vendre', email_body_maisons, sender, recipients, password, "EMAIL_THREAD_ID_MAISONS")
