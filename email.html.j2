@@ -34,23 +34,31 @@
             <table>
                 <tr>
                     <th>#</th>
+                    {% if 'Titre' in columns %}<th>Titre</th>{% endif %}
+                    {% if 'Date' in columns %}<th>Date</th>{% endif %}
                     {% if 'Prix' in columns %}<th>Prix</th>{% endif %}
                     {% if 'Localisation' in columns %}<th>Localisation</th>{% endif %}
                     {% if 'Type' in columns %}<th>Type</th>{% endif %}
                     {% if 'Surface' in columns %}<th>Surface</th>{% endif %}
                     {% if 'Chambres' in columns %}<th>Chambres</th>{% endif %}
                     {% if 'Pièces' in columns %}<th>Pièces</th>{% endif %}
+                    {% if 'Contact' in columns %}<th>Contact</th>{% endif %}
+                    {% if 'Téléphone' in columns %}<th>Téléphone</th>{% endif %}
                     {% if 'Lien' in columns %}<th>Lien</th>{% endif %}
                 </tr>
                 {% for logement in logements.values() %}
                 <tr>
                     <td>{{ logement.get('id', 'N/A') }}</td>
+                    {% if 'Titre' in columns %}<td>{{ logement.get('Titre', 'Non renseigné') }}</td>{% endif %}
+                    {% if 'Date' in columns %}<td>{{ logement.get('Date', 'Non renseigné') }}</td>{% endif %}
                     {% if 'Prix' in columns %}<td>{{ logement.get('Prix', 'Non renseigné') }}</td>{% endif %}
                     {% if 'Localisation' in columns %}<td>{{ logement.get('Localisation', 'Non renseigné') }}</td>{% endif %}
                     {% if 'Type' in columns %}<td>{{ logement.get('Type', 'Non renseigné') }}</td>{% endif %}
                     {% if 'Surface' in columns %}<td>{{ logement.get('Surface', 'N/A') }} m²</td>{% endif %}
                     {% if 'Chambres' in columns %}<td>{{ logement.get('Chambres', 'N/A') }}</td>{% endif %}
                     {% if 'Pièces' in columns %}<td>{{ logement.get('Pièces', 'N/A') }}</td>{% endif %}
+                    {% if 'Contact' in columns %}<td>{{ logement.get('Contact', 'Non renseigné') }}</td>{% endif %}
+                    {% if 'Téléphone' in columns %}<td>{{ logement.get('Téléphone', 'Non renseigné') }}</td>{% endif %}
                     {% if 'Lien' in columns %}
                         <td>
                             {% if logement.get('Lien') %}
