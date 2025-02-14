@@ -1,3 +1,7 @@
+- 0.0.4 : 
+    - Format email using jinja template:
+    - A table is created for each site. 
+    - if a colunm is empty, it will be hidden.
 - 0.0.3 : 
     - Use one email conversation by property type ( appartement and maisons)
     - Add the date of the scrapping to the beginning of the email's content

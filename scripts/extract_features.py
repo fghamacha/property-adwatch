@@ -14,10 +14,3 @@ def extract_features(features):
     surface = surface_match.group(1).replace(' ', '') if surface_match else None
 
     return price, rooms, surface
-
-# Exemple d'utilisation
-features = "230 490 €, 3, 65 m2"
-price, rooms, surface = extract_features(features)
-print(f"Prix: {price} €")
-print(f"Nombre de chambres: {rooms}")
-print(f"Surface: {surface} m2")

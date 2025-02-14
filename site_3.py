@@ -66,5 +66,5 @@ def get_ads_3(url):
 
 # Example usage of the function
 if __name__ == "__main__":
-    url_site_3 = 'https://www.havitat.fr/trouvez-votre-logement?locations=%C3%8Ele-de-France%2C%C3%8Ele-de-France&type_bien=f-maison'
+    url_site_3 = ""
     get_ads_3(url_site_3)

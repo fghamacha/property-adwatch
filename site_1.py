@@ -53,10 +53,10 @@ def get_ads_1(url_bailleur):
                 'id': compteur_maison,
                 'Titre': title,
                 'Prix': ', '.join(price),
-                'localisation': location,
-                'type': ad_type,
+                'Localisation': location,
+                'Type': ad_type,
                 'Pièces': rooms,
-                'lien': link
+                'Lien': link
             }
             maisons[base_detail_url][f"logement {compteur_maison}"] = logement
             compteur_maison +=1
