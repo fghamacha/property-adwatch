@@ -21,33 +21,45 @@
 
         {% for site, logements in annonces.items() %}
             <h2>🏠 Annonces de <a href="{{ site }}" class="link">{{ site }}</a></h2>
+
+            {% set columns = {} %}
+            {% for logement in logements.values() %}
+                {% for key, value in logement.items() %}
+                    {% if value %}
+                        {% set _ = columns.update({key: True}) %}
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+
             <table>
                 <tr>
                     <th>#</th>
-                    <th>Prix</th>
-                    <th>Localisation</th>
-                    <th>Type</th>
-                    <th>Surface</th>
-                    <th>Chambres</th>
-                    <th>Pièces</th>
-                    <th>Lien</th>
+                    {% if 'Prix' in columns %}<th>Prix</th>{% endif %}
+                    {% if 'Localisation' in columns %}<th>Localisation</th>{% endif %}
+                    {% if 'Type' in columns %}<th>Type</th>{% endif %}
+                    {% if 'Surface' in columns %}<th>Surface</th>{% endif %}
+                    {% if 'Chambres' in columns %}<th>Chambres</th>{% endif %}
+                    {% if 'Pièces' in columns %}<th>Pièces</th>{% endif %}
+                    {% if 'Lien' in columns %}<th>Lien</th>{% endif %}
                 </tr>
                 {% for logement in logements.values() %}
                 <tr>
                     <td>{{ logement.get('id', 'N/A') }}</td>
-                    <td>{{ logement.get('Prix', 'Non renseigné') }}</td>
-                    <td>{{ logement.get('Localisation', 'Non renseigné') }}</td>
-                    <td>{{ logement.get('Type', 'Non renseigné') }}</td>
-                    <td>{{ logement.get('Surface', 'N/A') }} m²</td>
-                    <td>{{ logement.get('Chambres', 'N/A') }}</td>
-                    <td>{{ logement.get('Pièces', 'N/A') }}</td>
-                    <td>
-                        {% if logement.get('Lien') %}
-                            <a href="{{ logement['Lien'] }}" class="link">Voir l'offre</a>
-                        {% else %}
-                            N/A
-                        {% endif %}
-                    </td>
+                    {% if 'Prix' in columns %}<td>{{ logement.get('Prix', 'Non renseigné') }}</td>{% endif %}
+                    {% if 'Localisation' in columns %}<td>{{ logement.get('Localisation', 'Non renseigné') }}</td>{% endif %}
+                    {% if 'Type' in columns %}<td>{{ logement.get('Type', 'Non renseigné') }}</td>{% endif %}
+                    {% if 'Surface' in columns %}<td>{{ logement.get('Surface', 'N/A') }} m²</td>{% endif %}
+                    {% if 'Chambres' in columns %}<td>{{ logement.get('Chambres', 'N/A') }}</td>{% endif %}
+                    {% if 'Pièces' in columns %}<td>{{ logement.get('Pièces', 'N/A') }}</td>{% endif %}
+                    {% if 'Lien' in columns %}
+                        <td>
+                            {% if logement.get('Lien') %}
+                                <a href="{{ logement['Lien'] }}" class="link">Voir l'offre</a>
+                            {% else %}
+                                N/A
+                            {% endif %}
+                        </td>
+                    {% endif %}
                 </tr>
                 {% endfor %}
             </table>
