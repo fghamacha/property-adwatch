@@ -1,29 +1,36 @@
 from email.mime.multipart import MIMEMultipart
 import smtplib
 from email.mime.text import MIMEText
-from dotenv import load_dotenv
+import yaml
+
+
 import os
 import ast
-import yaml
 from datetime import datetime
+from dotenv import load_dotenv
 from jinja2 import Environment, FileSystemLoader
 
+# Charger les variables d'environnement
+load_dotenv()  
+
+################################################################
+# Format Actuel date
+################################################################
 
 # Get current date and time
 now = datetime.now()
-
 # Convert datetime to string using strftime
 date_str = now.strftime('%d-%m-%Y  %H:%M')
 formatted_date = f"########## {date_str} ##########"
 
-load_dotenv()  # Charger les variables d'environnement
+################################################################
+# Charger les variables d'environnement pour l'email
+################################################################
 
 # subject = "Maisons à vendre "+date_str
-body = "This is the body of the text message"
 sender =  os.getenv('EMAIL_SENDER')
 recipients = ast.literal_eval(os.getenv('EMAIL_RECIPIENTS')) # 
 password = os.getenv('EMAIL_PASSWORD')
-
 # Obtenir les thread_id depuis les variables d'environnement
 thread_id_maisons = os.getenv('EMAIL_THREAD_ID_MAISONS')
 thread_id_appartements = os.getenv('EMAIL_THREAD_ID_APPARTEMENTS')
