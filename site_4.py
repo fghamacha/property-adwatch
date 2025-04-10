@@ -4,18 +4,14 @@ import sys
 import json
 from save_to_yaml import save_to_yaml
 import yaml
+from functions.scraping import fetch_and_parse
 
 
 def get_ads_4(url_bailleur):
     # URL de base pour les détails des logements, dérivé de url_bailleur
     base_detail_url = url_bailleur.replace('rechercher?distance=0km&place=%C3%8Ele-de-France&place=%C3%8ELE-DE-FRANCE%3AIDF&tab=PURCHASE&type=Maison', '')
-    headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36'
-    }
-    # Faire une requête GET pour récupérer le contenu de la page
-    response = requests.get(url_bailleur, headers=headers)
-    # Initialisation de BeautifulSoup pour analyser le contenu HTML
-    soup = BeautifulSoup(response.text, 'html.parser')
+    # Utiliser la fonction fetch_and_parse pour obtenir le contenu HTML
+    soup = fetch_and_parse(url)
     # Initialiser les listes pour les types de logements
     compteur_maison = 1
     compteur_appartement =1

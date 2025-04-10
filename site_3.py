@@ -1,22 +1,11 @@
 import requests
 from bs4 import BeautifulSoup
+from functions.scraping import fetch_and_parse
 
 def get_ads_3(url):
-    # Set up headers to mimic a browser request
-    headers = {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36'
-    }
 
-    # Send a request to the URL with headers
-    response = requests.get(url, headers=headers)
-    
-    # Check if the request was successful
-    if response.status_code != 200:
-        print(f"Error: Unable to access the page (status code {response.status_code})")
-        return
-
-    # Parse the HTML content
-    soup = BeautifulSoup(response.text, 'html.parser')
+    # Utiliser la fonction fetch_and_parse pour obtenir le contenu HTML
+    soup = fetch_and_parse(url)
 
     # Initialize lists for storing different types of properties
     maisons_pavillons = []

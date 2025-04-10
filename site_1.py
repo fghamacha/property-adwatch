@@ -4,19 +4,14 @@ import yaml
 import sys
 from save_to_yaml import save_to_yaml
 from scripts.extract_number_from_type import extract_number_from_type
-
+from functions.scraping import fetch_and_parse
 
 def get_ads_1(url_bailleur):
     # URL de base pour les détails des logements, dérivé de url_bailleur
     base_detail_url = url_bailleur.replace('/biens?type_de_bien=hlm&louer_ou_acheter=acheter&', '')
-    # En-têtes pour simuler un navigateur et éviter les blocages
-    headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36'
-    }
-    # Faire une requête GET pour récupérer le contenu de la page
-    response = requests.get(url_bailleur , headers=headers)
-    # Analyser le contenu HTML avec BeautifulSoup
-    soup = BeautifulSoup(response.text, 'html.parser')
+    
+    # Utiliser la fonction fetch_and_parse pour obtenir le contenu HTML
+    soup = fetch_and_parse(url)
     
     # Initialiser les listes pour les types de logements
     maisons = {
@@ -25,8 +20,7 @@ def get_ads_1(url_bailleur):
     appartements = {
         base_detail_url: {}
     }
-    # Afficher des parties spécifiques du contenu
-    print("\nOffres trouvés :")
+
     # Trouver les éléments d'annonces (par exemple, 'div' avec la classe 'views-row')
     ads = soup.find_all('div', class_='views-row')
     compteur_maison = 1

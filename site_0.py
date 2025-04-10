@@ -3,20 +3,15 @@ from bs4 import BeautifulSoup
 import sys
 import yaml
 from save_to_yaml import save_to_yaml
-
+from functions.scraping import fetch_and_parse
 
 def get_ads_0(url):
     
   #   Initier les variables : 
     base_detail_url = url.replace('/nos-logements-en-vente', '')
-    # Effectuer la requête HTTP pour obtenir le contenu de la page
-    response = requests.get(url)
-    if response.status_code != 200:
-        print(f"Erreur lors de la requête: {response.status_code}")
-        return []
 
-    # Parser le contenu HTML avec BeautifulSoup
-    soup = BeautifulSoup(response.text, 'html.parser')
+    # Utiliser la fonction fetch_and_parse pour obtenir le contenu HTML
+    soup = fetch_and_parse(url)
 
     # Trouver toutes les annonces
     compteur_maison = 1

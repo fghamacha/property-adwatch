@@ -2,6 +2,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import smtplib
 
+
 def create_email(subject, body, sender, recipients):
     """Create an email with the given subject and body."""
     msg = MIMEMultipart()

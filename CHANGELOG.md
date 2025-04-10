@@ -1,3 +1,7 @@
+- 0.0.5:
+    - Redactoring code by adding reusable functions shared across scripts: 
+        - scrapping.py : fetch_and_parse 
+        - email_utils.py:  create_email and send_email
 - 0.0.4 : 
     - Format email using jinja template:
     - A table is created for each site. 
