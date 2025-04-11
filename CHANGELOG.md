@@ -1,3 +1,9 @@
+- 0.0.5:
+    - Redactoring code by adding reusable functions shared across scripts: 
+        - scrapping.py : fetch_and_parse 
+        - email_utils.py:  create_email and send_email
+    - Update site_0 to analyse all pages ( it used to only scan page 0)
+    - Update DEFAULT_HEADERS to simulate last version of navigator
 - 0.0.4 : 
     - Format email using jinja template:
     - A table is created for each site. 
