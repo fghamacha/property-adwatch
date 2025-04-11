@@ -3,7 +3,9 @@ from bs4 import BeautifulSoup
 
 # En-têtes par défaut pour simuler une requête provenant d'un navigateur
 DEFAULT_HEADERS = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36',
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
+                  'AppleWebKit/537.36 (KHTML, like Gecko) '
+                  'Chrome/122.0.0.0 Safari/537.36',
     'Accept-Language': 'en-US,en;q=0.9',
     'Accept-Encoding': 'gzip, deflate, br',
     'Connection': 'keep-alive',
@@ -12,7 +14,10 @@ DEFAULT_HEADERS = {
 
 def fetch_and_parse(url, headers=DEFAULT_HEADERS):
 
-    response = requests.get(url, headers=headers)
+    session = requests.Session()
+    session.headers.update(headers)
+
+    response = session.get(url)
 
     if response.status_code == 200:
         return BeautifulSoup(response.text, 'html.parser')

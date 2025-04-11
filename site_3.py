@@ -1,4 +1,5 @@
 import requests
+import sys
 from bs4 import BeautifulSoup
 from functions.scraping import fetch_and_parse
 
@@ -55,5 +56,5 @@ def get_ads_3(url):
 
 # Example usage of the function
 if __name__ == "__main__":
-    url_site_3 = ""
-    get_ads_3(url_site_3)
+    url = sys.argv[1]
+    get_ads_3(url)
