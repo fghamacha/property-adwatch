@@ -77,7 +77,6 @@ def get_ads_5(url):
                     'Pièces': rooms,
                     'Surface': surface,
                     'Chambres': bedrooms,
-                    'Date': date,
                     'Lien': full_link               
                 }
                 appartements[base_detail_url][f"logement {compteur_appartement}"] = logement
@@ -91,8 +90,7 @@ def get_ads_5(url):
                     'Type': 'maison',
                     'Pièces': rooms,
                     'Surface': surface,
-                    'Chambres': bedrooms,
-                    'Date': date,                 
+                    'Chambres': bedrooms,          
                     'Lien': full_link                   
                 }
                 maisons[base_detail_url][f"logement {compteur_maison}"] = logement
