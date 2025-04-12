@@ -99,6 +99,8 @@ response.encoding
 
 We use Python's BeautifulSoup library to parse and manipulate HTML content returned by the website,
 
+- In Python web scraping, the select_one method is used to select the first matching element based on a given CSS selector
+
 ```py
 from bs4 import BeautifulSoup
 import requests
