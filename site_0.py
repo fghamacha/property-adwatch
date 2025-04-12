@@ -2,8 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import sys
 import yaml
-from save_to_yaml import save_to_yaml
-from functions.scraping import fetch_and_parse
+from functions.scraping import fetch_and_parse, save_to_yaml
 
 def get_ads_0(url):
     
@@ -27,7 +26,6 @@ def get_ads_0(url):
             break
         
         # Trouver toutes les annonces
-
         for ad in ads :
             try:
             # Récupérer les informations nécessaires

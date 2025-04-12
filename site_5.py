@@ -4,8 +4,8 @@ from bs4 import BeautifulSoup
 import sys
 import yaml
 # import my functions
-from save_to_yaml import save_to_yaml
-from functions.scraping import fetch_and_parse
+from functions.scraping import fetch_and_parse, save_to_yaml
+from functions.scripts import is_in_ile_de_france
 
 def get_ads_5(url):
 
@@ -33,9 +33,14 @@ def get_ads_5(url):
         for ad in ads:
             try:
                 # Récupérer les informations nécessaires
+                location = ad.select_one('div.content h3').text.strip()
+                # Skip ads not in Île-de-France
+                if not is_in_ile_de_france(location):
+                    continue
+
                 title = ad.select_one('div.picture a')['title'].strip()
                 price = ad.select_one('span.price').text.strip().replace('\u202f', ' ')  # Remove thin space
-                location = ad.select_one('div.content h3').text.strip()
+                
                 ########################################################
                 # Get rooms, area, and bedrooms
                 ########################################################
@@ -51,6 +56,7 @@ def get_ads_5(url):
                     elif 'bedrooms' in detail.get('class', []):
                         bedrooms = detail.text.strip()
                 ########################################################
+                
                     link = ad.select_one('div.picture a')['href']
                 full_link = f"{base_detail_url.rstrip('/')}{link}"
                 # Déterminer si c'est un appartement ou une maison
@@ -71,6 +77,7 @@ def get_ads_5(url):
                     'Pièces': rooms,
                     'Surface': surface,
                     'Chambres': bedrooms,
+                    'Date': date,
                     'Lien': full_link               
                 }
                 appartements[base_detail_url][f"logement {compteur_appartement}"] = logement
@@ -84,7 +91,8 @@ def get_ads_5(url):
                     'Type': 'maison',
                     'Pièces': rooms,
                     'Surface': surface,
-                    'Chambres': bedrooms,                    
+                    'Chambres': bedrooms,
+                    'Date': date,                 
                     'Lien': full_link                   
                 }
                 maisons[base_detail_url][f"logement {compteur_maison}"] = logement

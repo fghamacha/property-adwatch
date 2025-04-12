@@ -1,5 +1,6 @@
 - 0.1.0:
     - Add new site_5.py
+    - move some scripts under functions folder
 - 0.0.5:
     - Refactoring code by adding reusable functions shared across scripts: 
         - scrapping.py : fetch_and_parse 

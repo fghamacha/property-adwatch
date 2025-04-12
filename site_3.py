@@ -1,7 +1,7 @@
 import requests
 import sys
 from bs4 import BeautifulSoup
-from functions.scraping import fetch_and_parse
+from functions.scraping import fetch_and_parse, save_to_yaml
 
 def get_ads_3(url):
 
