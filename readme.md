@@ -16,17 +16,29 @@ we use the python function requests.get(URL) from the librery  requests
 # Project Structure
 
 ```md
-project/
+property_adwatch/
 │
-├── site_1.py           # Scraper for site 1
-├── site_2.py           # Scraper for site 2
-├── site_4.py           # Scraper for site 4
-├── main.py             # main python script to run all specific python scripts
-├── save_to_yaml.py     # Utility to save data to a shared YAML file
-├── requirements.txt    # Python dependencies
 ├── .github/
 │   └── workflows/
 │       └── main.yml   # GitHub Actions workflow to run python scripts and display yaml file
+│
+├── functions/
+|   ├── _init_.py
+|   ├── email_utils.py
+|   └── scrapping.py
+│
+├── scripts/
+|   ├── extract_features.py     # Utility to save data to a shared YAML file
+|   └── extract_number_from_type.py
+|
+├── main.py             # main python script to run all specific python scripts
+├── site_0.py           # Scraper for site 0
+├── site_1.py           # Scraper for site 1
+├── site_2.py           # Scraper for site 2
+├── site_4.py           # Scraper for site 4
+├── site_5.py           # Scraper for site 5
+|
+├── requirements.txt    # Python dependencies
 ├── CHANGELOG.md
 └── README.md           # Project documentation
 ```
@@ -70,11 +82,13 @@ python <MY_SITE>.py "https://<MY_SITE>"
 ###### Environment Variables
 
 - Define environment variables in the GitHub repository settings for dynamic URLs:
+- URL_BAILLEUR_0
 - URL_BAILLEUR_1
 - URL_BAILLEUR_2
 - URL_BAILLEUR_4
+- URL_BAILLEUR_5
 
-These will be injected into the scripts during execution.
+The- URL_BAILLEUR_1 will be injected into the scripts during execution.
 
 # License
 

@@ -5,12 +5,12 @@ on:
     branches:
       - main  # Le script se déclenche à chaque push sur la branche main
   schedule:
-    - cron: '0 8 * * *'  # Le script se déclenche tous les jours à 8h00 UTC
+    - cron: '0 7 * * *'  # Le script se déclenche tous les jours à 7h00 UTC
   workflow_dispatch:  # Permet le déclenchement manuel sur toutes les branches
 
 jobs:
   run-script:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
 
     steps:
     - name: Checkout code
@@ -32,6 +32,7 @@ jobs:
         URL_BAILLEUR_1: ${{ vars.URL_BAILLEUR_1 }}
         URL_BAILLEUR_2: ${{ vars.URL_BAILLEUR_2 }}
         URL_BAILLEUR_4: ${{ vars.URL_BAILLEUR_4 }}
+        URL_BAILLEUR_5: ${{ vars.URL_BAILLEUR_5 }}
         EMAIL_SENDER: ${{ secrets.EMAIL_SENDER }}
         EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
         EMAIL_RECIPIENTS: ${{ secrets.EMAIL_RECIPIENTS }}
