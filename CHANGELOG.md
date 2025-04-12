@@ -1,5 +1,8 @@
+- 0.1.0:
+    - Add new site_5.py
+    - move some scripts under functions folder
 - 0.0.5:
-    - Redactoring code by adding reusable functions shared across scripts: 
+    - Refactoring code by adding reusable functions shared across scripts: 
         - scrapping.py : fetch_and_parse 
         - email_utils.py:  create_email and send_email
     - Update site_0 to analyse all pages ( it used to only scan page 0)

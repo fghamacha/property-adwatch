@@ -2,8 +2,8 @@ import requests
 from bs4 import BeautifulSoup
 import yaml
 import sys
-from save_to_yaml import save_to_yaml
-from scripts.extract_features import extract_features
+from functions.scraping import fetch_and_parse, save_to_yaml
+from functions.scripts import extract_features
 
 
 def get_ads_2(url_bailleur):

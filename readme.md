@@ -1,4 +1,3 @@
-
 # Property Ad Watch
 
 Property Ad Watch is a Python-based web scraping project that collects property ads from multiple websites. The project centralizes the collected data in a shared YAML file for easy analysis and storage.
@@ -16,17 +15,26 @@ we use the python function requests.get(URL) from the librery  requests
 # Project Structure
 
 ```md
-project/
+property_adwatch/
 │
-├── site_1.py           # Scraper for site 1
-├── site_2.py           # Scraper for site 2
-├── site_4.py           # Scraper for site 4
-├── main.py             # main python script to run all specific python scripts
-├── save_to_yaml.py     # Utility to save data to a shared YAML file
-├── requirements.txt    # Python dependencies
 ├── .github/
 │   └── workflows/
 │       └── main.yml   # GitHub Actions workflow to run python scripts and display yaml file
+│
+├── functions/
+|   ├── _init_.py
+|   ├── email_utils.py
+|   ├── scrapping.py
+|   └── scripts.py
+|
+├── main.py             # main python script to run all specific python scripts
+├── site_0.py           # Scraper for site 0
+├── site_1.py           # Scraper for site 1
+├── site_2.py           # Scraper for site 2
+├── site_4.py           # Scraper for site 4
+├── site_5.py           # Scraper for site 5
+|
+├── requirements.txt    # Python dependencies
 ├── CHANGELOG.md
 └── README.md           # Project documentation
 ```
@@ -41,7 +49,7 @@ project/
 - The main entry point for running all scrapers is main.py.
 - GitHub Actions is configured to execute the scripts automatically on:
     - Push to the main branch.
-    - Scheduled daily at 8:00 AM UTC.
+    - Scheduled daily at 7:00 AM UTC.
     - Manual trigger on other branches.
 
 ##  Usage
@@ -54,7 +62,30 @@ project/
 pip install -r requirements.txt
 ```
 #### Run Locally
-To scrape data manually, execute the scraper scripts with the desired URL:
+To scrape data manually
+
+1. create .env file in the main repository directory with the following values : 
+
+```sh
+URL_BAILLEUR_0=""
+URL_BAILLEUR_1=""
+URL_BAILLEUR_2=""
+URL_BAILLEUR_4=""
+URL_BAILLEUR_5=""
+
+# URL_BAILLEUR_3="" not working yet
+ 
+EMAIL_SENDER="<username>a@gmail.com"
+EMAIL_RECIPIENTS=["username@gmail.com","username@gmail.com"]
+EMAIL_PASSWORD="xxxx xxxx xxxx xxxx"
+EMAIL_THREAD_ID_MAISONS="<xxxxxxxxxxxxxxxxxx@mx.google.com>"
+EMAIL_THREAD_ID_APPARTEMENTS="xxxxxxxxxxxxxx@mx.google.com>"
+```
+
+Notes: 
+    -   you can get create your gmail app password here https://myaccount.google.com/apppasswords 
+
+2. execute the scraper scripts with the desired URL:
 
 ```sh
 python <MY_SITE>.py "https://<MY_SITE>"
@@ -70,11 +101,13 @@ python <MY_SITE>.py "https://<MY_SITE>"
 ###### Environment Variables
 
 - Define environment variables in the GitHub repository settings for dynamic URLs:
+- URL_BAILLEUR_0
 - URL_BAILLEUR_1
 - URL_BAILLEUR_2
 - URL_BAILLEUR_4
+- URL_BAILLEUR_5
 
-These will be injected into the scripts during execution.
+The- URL_BAILLEUR_1 will be injected into the scripts during execution.
 
 # License
 
@@ -98,6 +131,8 @@ response.encoding
 ```
 
 We use Python's BeautifulSoup library to parse and manipulate HTML content returned by the website,
+
+- In Python web scraping, the select_one method is used to select the first matching element based on a given CSS selector
 
 ```py
 from bs4 import BeautifulSoup

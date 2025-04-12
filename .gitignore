@@ -4,6 +4,7 @@ maisons*.yaml
 appartements*.yaml
 logements.yaml
 __pycache__
+functions/__pycache__
 .env
 notes.md
-site_5.py
+site5.txt

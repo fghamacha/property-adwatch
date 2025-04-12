@@ -2,9 +2,8 @@ import requests
 from bs4 import BeautifulSoup
 import yaml
 import sys
-from save_to_yaml import save_to_yaml
-from scripts.extract_number_from_type import extract_number_from_type
-from functions.scraping import fetch_and_parse
+from functions.scripts import extract_number_from_type
+from functions.scraping import fetch_and_parse, save_to_yaml
 
 def get_ads_1(url_bailleur):
     # URL de base pour les détails des logements, dérivé de url_bailleur
