@@ -2,7 +2,8 @@ import requests
 from bs4 import BeautifulSoup
 import sys
 import yaml
-from functions.scraping import fetch_and_parse, save_to_yaml
+from functions.scraping import fetch_and_parse, save_to_yaml, extract_surface, extract_visit_dates
+
 
 def get_ads_0(url):
     
@@ -35,6 +36,9 @@ def get_ads_0(url):
                 location = ad.select_one('.block-lieu div:last-child').text.strip()
                 date = ad.select_one('.block-date time').text.strip()
                 link = base_detail_url + ad.select_one('.block-titre a')['href']
+                surface= extract_surface(description)
+                image = base_detail_url + ad.select_one('.block-image img')['src'] if ad.select_one('.block-image img') else None
+                visits = extract_visit_dates(description)
             except AttributeError:
             # Ignorer les annonces mal formées
                 print("Une annonce n'a pas pu être parsée correctement.")
@@ -48,7 +52,11 @@ def get_ads_0(url):
                     'Prix': price,
                     'Localisation': location,
                     'Type': 'appartement',
+                    'Surface': surface,
                     'Date': date,
+                    'Image': image,
+                    'Dates_visite': visits,
+
                     'Lien': link               
                 }
                 appartements[base_detail_url][f"logement {compteur_appartement}"] = logement
@@ -60,7 +68,10 @@ def get_ads_0(url):
                     'Prix': price,
                     'Localisation': location,
                     'Type': 'maison',
+                    'Surface': surface,
                     'Date': date,
+                    'Image': image,
+                    'Dates_visite': visits,
                     'Lien': link               
                 }
                 maisons[base_detail_url][f"logement {compteur_maison}"] = logement

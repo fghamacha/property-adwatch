@@ -43,6 +43,7 @@
                     {% if 'Chambres' in columns %}<th>Chambres</th>{% endif %}
                     {% if 'Pièces' in columns %}<th>Pièces</th>{% endif %}
                     {% if 'Contact' in columns %}<th>Contact</th>{% endif %}
+                    {% if 'Image' in columns %}<th>Image</th>{% endif %}                    
                     {% if 'Téléphone' in columns %}<th>Téléphone</th>{% endif %}
                     {% if 'Lien' in columns %}<th>Lien</th>{% endif %}
                 </tr>
@@ -58,6 +59,7 @@
                     {% if 'Chambres' in columns %}<td>{{ logement.get('Chambres', 'N/A') }}</td>{% endif %}
                     {% if 'Pièces' in columns %}<td>{{ logement.get('Pièces', 'N/A') }}</td>{% endif %}
                     {% if 'Contact' in columns %}<td>{{ logement.get('Contact', 'Non renseigné') }}</td>{% endif %}
+                    {% if 'Image' in columns %}<td>{{ logement.get('Image', 'N/A') }}</td>{% endif %}
                     {% if 'Téléphone' in columns %}<td>{{ logement.get('Téléphone', 'Non renseigné') }}</td>{% endif %}
                     {% if 'Lien' in columns %}
                         <td>
